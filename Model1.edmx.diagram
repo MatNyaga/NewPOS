@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7a7cbffd85db47079f427b1d8836b564" Name="Diagram1">
+        <EntityTypeShape EntityType="Database1Model.tblCategory" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.tblProduct" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.tblTransaction" Width="1.5" PointX="5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.tblTransactionItem" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.tblUsers" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="Database1Model.FK_tblProduct_tblCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_tblTransactionItem_tblProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_tblTransactionItem_tblTransaction" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_tblTransactionItem_tblUsers" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Database1Model.tblCompanyDetails" Width="1.5" PointX="1.125" PointY="3.625" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
