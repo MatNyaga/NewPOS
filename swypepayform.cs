@@ -33,7 +33,7 @@ namespace NewPOS
 
         Database1Entities dbe = new Database1Entities();
 
-        public delegate void PayedEvent();
+        public delegate void PayedEvent(String uid);
 
         public event PayedEvent PayedEv;
 
@@ -298,7 +298,7 @@ namespace NewPOS
                 var responseString = "";
                 if (txtPaymentAmount.Text == "")
                 {
-                    responseString = await "http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/check-card-balance-without-password".PostUrlEncodedAsync(new { carduid = UID }).ReceiveString();
+                    responseString = await Properties.Settings.Default.checkcardbalancewopassword.PostUrlEncodedAsync(new { carduid = UID }).ReceiveString();
                     int index = responseString.IndexOf("telephone");
                     int balindex = responseString.IndexOf("amount");
                     String Temp = responseString.Substring(index + 12);
@@ -306,19 +306,19 @@ namespace NewPOS
                     telephonenumber = Temp.Remove(tempindex - 3);
                     String amnttemp = responseString.Substring(balindex + 8);
                     cardbalance = amnttemp.Remove(amnttemp.Length - 1);
-                    responseString = await "http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/check-out-without-password".PostUrlEncodedAsync(new { phone = telephonenumber, amount = amountToPay, transactiontype = "iscard", paytophone = "QUI647" }).ReceiveString();
+                    responseString = await Properties.Settings.Default.checkoutwopassword.PostUrlEncodedAsync(new { phone = telephonenumber, amount = amountToPay, transactiontype = "iscard", paytophone = "QUI647" }).ReceiveString();
 
-                    statuslabl.Text = responseString;
+                    //statuslabl.Text = responseString;
                 }
                 else {
-                    responseString = await "http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/card-check-out".PostUrlEncodedAsync(new { paytophone = stringArr[8], amount = amountToPay, password = txtPaymentAmount.Text, transactiontype = "iscard", carduid = UID }).ReceiveString();
+                    responseString = await Properties.Settings.Default.cardcheckout.PostUrlEncodedAsync(new { paytophone = stringArr[8], amount = amountToPay, password = txtPaymentAmount.Text, transactiontype = "iscard", carduid = UID }).ReceiveString();
                 }
                     if (responseString.Contains("ERROR"))
                 {
                     statuslabl.Text = responseString;
                     return;
                 }
-                PayedEv();
+                PayedEv(UID);
                 statuslabl.Text = "TRANSACTION SUCCESSFUL";
                 cardid.Text = "Card ID";
                 MessageBox.Show("TRANSACTION SUCCESSFUL");

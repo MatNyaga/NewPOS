@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace NewPOS
         public delegate void PayedEvent();
 
         public event PayedEvent PayedEv;
+        String mycurrency;
 
         protected override CreateParams CreateParams
         {
@@ -69,7 +71,7 @@ namespace NewPOS
                 }
                 else
                 {
-                    label2.Text = "KES. "+ -total;
+                    label2.Text = mycurrency+ -total;
                     btnOk.Enabled = false;
                     MessageBox.Show("Transaction Sucessful");
                     PayedEv();
@@ -82,7 +84,9 @@ namespace NewPOS
 
         private void PayForm_Load(object sender, EventArgs e)
         {
-           
+            var ri = new RegionInfo(System.Threading.Thread.CurrentThread.CurrentUICulture.LCID);
+            mycurrency = ri.ISOCurrencySymbol + ". ";
+            label2.Text = mycurrency;
         }
 
         private void button1_Click(object sender, EventArgs e)

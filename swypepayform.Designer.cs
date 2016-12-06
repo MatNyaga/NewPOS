@@ -318,6 +318,7 @@
             this.nyagauid.TabIndex = 40;
             this.nyagauid.Text = "UID";
             this.nyagauid.UseVisualStyleBackColor = true;
+            this.nyagauid.Visible = false;
             this.nyagauid.Click += new System.EventHandler(this.nyagauid_Click);
             // 
             // swypepayform

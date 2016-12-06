@@ -57,5 +57,44 @@ namespace NewPOS.Properties {
                     "onnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/login-user")]
+        public string loginuserapi {
+            get {
+                return ((string)(this["loginuserapi"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/check-card-ba" +
+            "lance-without-password")]
+        public string checkcardbalancewopassword {
+            get {
+                return ((string)(this["checkcardbalancewopassword"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/check-out-wit" +
+            "hout-password")]
+        public string checkoutwopassword {
+            get {
+                return ((string)(this["checkoutwopassword"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/card-check-ou" +
+            "t")]
+        public string cardcheckout {
+            get {
+                return ((string)(this["cardcheckout"]));
+            }
+        }
     }
 }

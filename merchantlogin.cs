@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Flurl.Http;
+using System.IO;
 
 namespace NewPOS
 {
@@ -18,7 +19,6 @@ namespace NewPOS
 
         private void label2_Click(object sender, EventArgs e)
         {
-
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -28,7 +28,6 @@ namespace NewPOS
 
         private void merchantlogin_Load(object sender, EventArgs e)
         {
-
         }
 
         private void oscheck_Click(object sender, EventArgs e)
@@ -50,9 +49,12 @@ namespace NewPOS
             pass = password.Text;
             try
             {
-                response = await "http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/login-user".PostUrlEncodedAsync(new { phone = phonenumber, password = pass }).ReceiveString();
+                response = await Properties.Settings.Default.loginuserapi.PostUrlEncodedAsync(new { phone = phonenumber, password = pass }).ReceiveString();
             }
-            catch (Exception connectionerror) { MessageBox.Show(connectionerror.Message); }
+            catch (Exception connectionerror) { MessageBox.Show(connectionerror.Message);
+                string curFile = Environment.CurrentDirectory + "\\FirstRun.ini";
+                File.Delete(curFile);
+                return; }
             if (response.Contains("SUCCESS"))
             {
                 int merchantindex = response.IndexOf("merchantCode");
@@ -76,13 +78,10 @@ namespace NewPOS
                 phone = response.Substring(phoneindex + 12);
                 phone = phone.Remove(phone.IndexOf(",")-1);
 
-
                 mycompanyclass.insertdetails(merchantcode, email, role, type, phone, pass);
                 confirmdetailsfrm newfrm = new confirmdetailsfrm(mycompanyclass);
                 newfrm.ShowDialog();
                 //this.Hide();
-
-
             }
             else
             {

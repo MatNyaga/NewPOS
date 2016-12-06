@@ -49,6 +49,7 @@
           <Property Name="transactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="transactionDate" Type="datetime" />
           <Property Name="cashless" Type="nchar" MaxLength="10" />
+          <Property Name="uid" Type="nchar" MaxLength="60" />
         </EntityType>
         <EntityType Name="tblTransactionItem">
           <Key>
@@ -178,6 +179,7 @@
           <Property Name="transactionDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tblTransactionItem" Relationship="Self.FK_tblTransactionItem_tblTransaction" FromRole="tblTransaction" ToRole="tblTransactionItem" />
           <Property Name="cashless" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="uid" Type="String" MaxLength="60" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="tblTransactionItem">
           <Key>
@@ -323,7 +325,8 @@
     <EntitySetMapping Name="tblTransaction">
       <EntityTypeMapping TypeName="IsTypeOf(Database1Model.tblTransaction)">
         <MappingFragment StoreEntitySet="tblTransaction">
-          <ScalarProperty Name="transactionId" ColumnName="transactionId" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="transactionId" ColumnName="transactionId" />
           <ScalarProperty Name="transactionDate" ColumnName="transactionDate" />
           <ScalarProperty Name="cashless" ColumnName="cashless" />
         </MappingFragment>

@@ -26,5 +26,17 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=(localdb)\MSSQLLocalDB;Initial Catalog="C:\USERS\G4\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\NEWPOS\BIN\DEBUG\DATABASE1.MDF";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True</Value>
     </Setting>
+    <Setting Name="loginuserapi" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/login-user</Value>
+    </Setting>
+    <Setting Name="checkcardbalancewopassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/check-card-balance-without-password</Value>
+    </Setting>
+    <Setting Name="checkoutwopassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/check-out-without-password</Value>
+    </Setting>
+    <Setting Name="cardcheckout" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/card-check-out</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

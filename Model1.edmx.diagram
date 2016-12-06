@@ -7,7 +7,7 @@
       <Diagram DiagramId="7a7cbffd85db47079f427b1d8836b564" Name="Diagram1">
         <EntityTypeShape EntityType="Database1Model.tblCategory" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Database1Model.tblProduct" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Database1Model.tblTransaction" Width="1.5" PointX="5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.tblTransaction" Width="1.75" PointX="4.25" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Database1Model.tblTransactionItem" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="Database1Model.tblUsers" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="Database1Model.FK_tblProduct_tblCategory" ManuallyRouted="false" />

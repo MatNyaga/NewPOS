@@ -22,6 +22,7 @@ namespace NewPOS
         public int transactionId { get; set; }
         public Nullable<System.DateTime> transactionDate { get; set; }
         public string cashless { get; set; }
+        public string uid { get; set; }
     
         public virtual ICollection<tblTransactionItem> tblTransactionItem { get; set; }
     }

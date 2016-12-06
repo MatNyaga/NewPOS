@@ -256,16 +256,18 @@ namespace NewPOS
             catch { }
         }
 
-        void pf1_cashlessPayedEv()
+        void pf1_cashlessPayedEv(String myuid)
         {
             tblTransaction transaction = new tblTransaction();
 
             transaction.transactionDate = System.DateTime.Now;
             transaction.cashless = "SwypePay";
+            transaction.uid = myuid;
 
             foreach (tblProduct prod in products)
             {
                 transaction.tblTransactionItem.Add(new tblTransactionItem() { productId = prod.productId });
+
             }
 
             dbe.tblTransaction.Add(transaction);
@@ -283,6 +285,7 @@ namespace NewPOS
 
             transaction.transactionDate = System.DateTime.Now;
             transaction.cashless = "Cash";
+            transaction.uid = "cash";
 
             foreach (tblProduct prod in products)
             {
