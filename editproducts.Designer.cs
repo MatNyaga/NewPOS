@@ -52,6 +52,9 @@
             this.tblCategoryTableAdapter1 = new NewPOS.Database1DataSetTableAdapters.tblCategoryTableAdapter();
             this.tblProductTableAdapter1 = new NewPOS.Database1DataSetTableAdapters.tblProductTableAdapter();
             this.label1 = new System.Windows.Forms.Label();
+            this.CSVImport = new System.Windows.Forms.Button();
+            this.image = new System.Windows.Forms.Button();
+            this.save = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblProductBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSetBindingSource1)).BeginInit();
@@ -213,12 +216,45 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Product Edit Form";
             // 
+            // CSVImport
+            // 
+            this.CSVImport.Location = new System.Drawing.Point(519, 35);
+            this.CSVImport.Name = "CSVImport";
+            this.CSVImport.Size = new System.Drawing.Size(75, 23);
+            this.CSVImport.TabIndex = 3;
+            this.CSVImport.Text = "Import Stock";
+            this.CSVImport.UseVisualStyleBackColor = true;
+            this.CSVImport.Click += new System.EventHandler(this.CSVImport_Click);
+            // 
+            // image
+            // 
+            this.image.Location = new System.Drawing.Point(600, 35);
+            this.image.Name = "image";
+            this.image.Size = new System.Drawing.Size(51, 23);
+            this.image.TabIndex = 4;
+            this.image.Text = "Image";
+            this.image.UseVisualStyleBackColor = true;
+            this.image.Click += new System.EventHandler(this.image_Click);
+            // 
+            // save
+            // 
+            this.save.Location = new System.Drawing.Point(685, 94);
+            this.save.Name = "save";
+            this.save.Size = new System.Drawing.Size(75, 23);
+            this.save.TabIndex = 5;
+            this.save.Text = "Save";
+            this.save.UseVisualStyleBackColor = true;
+            this.save.Click += new System.EventHandler(this.save_Click);
+            // 
             // editproducts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(832, 566);
+            this.Controls.Add(this.save);
+            this.Controls.Add(this.image);
+            this.Controls.Add(this.CSVImport);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.fillByToolStrip);
             this.Controls.Add(this.dataGridView1);
@@ -267,5 +303,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn openingstock;
         private System.Windows.Forms.DataGridViewTextBoxColumn amountsold;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button CSVImport;
+        private System.Windows.Forms.Button image;
+        private System.Windows.Forms.Button save;
     }
 }

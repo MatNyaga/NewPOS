@@ -40,14 +40,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.LiveRadio = new System.Windows.Forms.RadioButton();
+            this.SandboxRadio = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbluserName
             // 
             this.lbluserName.AutoSize = true;
             this.lbluserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbluserName.Location = new System.Drawing.Point(37, 128);
+            this.lbluserName.Location = new System.Drawing.Point(32, 185);
             this.lbluserName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbluserName.Name = "lbluserName";
             this.lbluserName.Size = new System.Drawing.Size(119, 13);
@@ -56,7 +60,7 @@
             // 
             // txtUserName
             // 
-            this.txtUserName.Location = new System.Drawing.Point(40, 145);
+            this.txtUserName.Location = new System.Drawing.Point(35, 202);
             this.txtUserName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(234, 26);
@@ -64,7 +68,7 @@
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(40, 202);
+            this.txtPassword.Location = new System.Drawing.Point(35, 259);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(234, 26);
@@ -76,7 +80,7 @@
             // 
             this.lblPassword.AutoSize = true;
             this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPassword.Location = new System.Drawing.Point(37, 184);
+            this.lblPassword.Location = new System.Drawing.Point(32, 241);
             this.lblPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(95, 13);
@@ -87,7 +91,7 @@
             // 
             this.btnSignIn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnSignIn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnSignIn.Location = new System.Drawing.Point(85, 258);
+            this.btnSignIn.Location = new System.Drawing.Point(80, 315);
             this.btnSignIn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSignIn.Name = "btnSignIn";
             this.btnSignIn.Size = new System.Drawing.Size(150, 38);
@@ -100,7 +104,7 @@
             // 
             this.lblMessage.AutoSize = true;
             this.lblMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMessage.Location = new System.Drawing.Point(22, 322);
+            this.lblMessage.Location = new System.Drawing.Point(55, 383);
             this.lblMessage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(96, 15);
@@ -112,7 +116,7 @@
             // 
             this.llblRegister.AutoSize = true;
             this.llblRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.llblRegister.Location = new System.Drawing.Point(115, 321);
+            this.llblRegister.Location = new System.Drawing.Point(148, 382);
             this.llblRegister.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.llblRegister.Name = "llblRegister";
             this.llblRegister.Size = new System.Drawing.Size(87, 15);
@@ -136,7 +140,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(62, 89);
+            this.label1.Location = new System.Drawing.Point(54, 149);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(203, 20);
             this.label1.TabIndex = 8;
@@ -146,7 +150,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(62, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(58, 79);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(202, 68);
@@ -158,7 +162,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(212, 344);
+            this.label2.Location = new System.Drawing.Point(245, 405);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 19);
@@ -167,12 +171,47 @@
             this.label2.UseCompatibleTextRendering = true;
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
+            // LiveRadio
+            // 
+            this.LiveRadio.AutoSize = true;
+            this.LiveRadio.Location = new System.Drawing.Point(31, 19);
+            this.LiveRadio.Name = "LiveRadio";
+            this.LiveRadio.Size = new System.Drawing.Size(51, 20);
+            this.LiveRadio.TabIndex = 11;
+            this.LiveRadio.Text = "Live";
+            this.LiveRadio.UseVisualStyleBackColor = true;
+            this.LiveRadio.CheckedChanged += new System.EventHandler(this.LiveRadio_CheckedChanged);
+            // 
+            // SandboxRadio
+            // 
+            this.SandboxRadio.AutoSize = true;
+            this.SandboxRadio.Location = new System.Drawing.Point(31, 39);
+            this.SandboxRadio.Name = "SandboxRadio";
+            this.SandboxRadio.Size = new System.Drawing.Size(80, 20);
+            this.SandboxRadio.TabIndex = 12;
+            this.SandboxRadio.Text = "Sandbox";
+            this.SandboxRadio.UseVisualStyleBackColor = true;
+            this.SandboxRadio.CheckedChanged += new System.EventHandler(this.SandboxRadio_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.SandboxRadio);
+            this.groupBox1.Controls.Add(this.LiveRadio);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(169, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(143, 62);
+            this.groupBox1.TabIndex = 14;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Server";
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(323, 368);
+            this.ClientSize = new System.Drawing.Size(323, 439);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
@@ -192,6 +231,8 @@
             this.Text = "SwypePOS | Designed for Businesses/Merchants";
             this.Load += new System.EventHandler(this.LoginForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,5 +251,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RadioButton LiveRadio;
+        private System.Windows.Forms.RadioButton SandboxRadio;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

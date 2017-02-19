@@ -63,6 +63,16 @@ namespace NewPOS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Cycle_recycle_refresh_repeat_arrow_512 {
+            get {
+                object obj = ResourceManager.GetObject("Cycle_recycle_refresh_repeat_arrow-512", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap declined {
             get {
                 object obj = ResourceManager.GetObject("declined", resourceCulture);

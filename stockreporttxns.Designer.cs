@@ -42,7 +42,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.openingstcklbl = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.availablestock = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -173,21 +173,21 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(610, 85);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(84, 13);
+            this.label6.Size = new System.Drawing.Size(85, 13);
             this.label6.TabIndex = 8;
-            this.label6.Text = "Available Stock";
+            this.label6.Text = "Alert Threshold";
             // 
-            // label7
+            // availablestock
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label7.Location = new System.Drawing.Point(618, 106);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(60, 32);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "-pcs";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
+            this.availablestock.AutoSize = true;
+            this.availablestock.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.availablestock.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.availablestock.Location = new System.Drawing.Point(618, 106);
+            this.availablestock.Name = "availablestock";
+            this.availablestock.Size = new System.Drawing.Size(60, 32);
+            this.availablestock.TabIndex = 9;
+            this.availablestock.Text = "-pcs";
+            this.availablestock.Click += new System.EventHandler(this.label7_Click);
             // 
             // label8
             // 
@@ -335,7 +335,7 @@
             this.pdfexport.Name = "pdfexport";
             this.pdfexport.Size = new System.Drawing.Size(125, 31);
             this.pdfexport.TabIndex = 16;
-            this.pdfexport.Text = "PDF Export";
+            this.pdfexport.Text = "XLSX Export";
             this.pdfexport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.pdfexport.UseVisualStyleBackColor = false;
             this.pdfexport.Click += new System.EventHandler(this.pdfexport_Click);
@@ -352,7 +352,7 @@
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.availablestock);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.openingstcklbl);
             this.Controls.Add(this.label4);
@@ -391,7 +391,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label openingstcklbl;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label availablestock;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;

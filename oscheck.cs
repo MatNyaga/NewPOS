@@ -65,5 +65,12 @@ namespace NewPOS
             form1.Show();
             this.Hide();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(this,"Please replace the Database Now", "Databasse Replacement",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+            merchantlogin merch = new merchantlogin();
+            merch.Show();
+        }
     }
 }

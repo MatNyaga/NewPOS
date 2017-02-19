@@ -32,6 +32,7 @@ namespace NewPOS
 
         private void oscheck_Click(object sender, EventArgs e)
         {
+
             compatibilitycheck form1 = new compatibilitycheck();
             form1.Show();
             this.Hide();
@@ -49,7 +50,15 @@ namespace NewPOS
             pass = password.Text;
             try
             {
-                response = await Properties.Settings.Default.loginuserapi.PostUrlEncodedAsync(new { phone = phonenumber, password = pass }).ReceiveString();
+                if (Properties.Settings.Default.Live == "Yes")
+                {
+                    response = await Properties.Settings.Default.loginuserapiLive.PostUrlEncodedAsync(new { phone = phonenumber, password = pass }).ReceiveString();
+                }
+                else
+                {
+                    response = await Properties.Settings.Default.loginuserapi.PostUrlEncodedAsync(new { phone = phonenumber, password = pass }).ReceiveString();
+                }
+                
             }
             catch (Exception connectionerror) { MessageBox.Show(connectionerror.Message);
                 string curFile = Environment.CurrentDirectory + "\\FirstRun.ini";
@@ -64,6 +73,7 @@ namespace NewPOS
                 int typeindex = response.IndexOf("type");
                 int phoneindex = response.IndexOf("Telephone");
                 int transtatusindex = response.IndexOf("transactionStatus");
+                login.Visible = false;
                 oscheck.Visible = true;
 
                 //obtain values from string
@@ -81,11 +91,12 @@ namespace NewPOS
                 mycompanyclass.insertdetails(merchantcode, email, role, type, phone, pass);
                 confirmdetailsfrm newfrm = new confirmdetailsfrm(mycompanyclass);
                 newfrm.ShowDialog();
-                //this.Hide();
+
             }
             else
             {
-                MessageBox.Show("Invalid PhoneNumber/Password");
+                MessageBox.Show(response);
+                //MessageBox.Show("Invalid PhoneNumber/Password");
             }
         }
     }

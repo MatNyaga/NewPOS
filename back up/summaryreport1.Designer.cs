@@ -38,9 +38,11 @@ namespace NewPOS {
         
         private global::System.Data.DataRelation relationtblTransactionItem_tblUsers;
         
-        private global::System.Data.DataRelation relationFK_tblTransactionItem_tblProduct;
+        private global::System.Data.DataRelation relationtblProduct_tblTransactionItem;
         
-        private global::System.Data.DataRelation relationFK_tblProduct_tblCategory;
+        private global::System.Data.DataRelation relationtblTransaction_tblTransactionItem;
+        
+        private global::System.Data.DataRelation relationtblCategory_tblProduct;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -321,8 +323,9 @@ namespace NewPOS {
                 }
             }
             this.relationtblTransactionItem_tblUsers = this.Relations["tblTransactionItem_tblUsers"];
-            this.relationFK_tblTransactionItem_tblProduct = this.Relations["FK_tblTransactionItem_tblProduct"];
-            this.relationFK_tblProduct_tblCategory = this.Relations["FK_tblProduct_tblCategory"];
+            this.relationtblProduct_tblTransactionItem = this.Relations["tblProduct_tblTransactionItem"];
+            this.relationtblTransaction_tblTransactionItem = this.Relations["tblTransaction_tblTransactionItem"];
+            this.relationtblCategory_tblProduct = this.Relations["tblCategory_tblProduct"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -349,14 +352,18 @@ namespace NewPOS {
                         this.tabletblTransactionItem.userIdColumn}, new global::System.Data.DataColumn[] {
                         this.tabletblUsers.userIdColumn}, false);
             this.Relations.Add(this.relationtblTransactionItem_tblUsers);
-            this.relationFK_tblTransactionItem_tblProduct = new global::System.Data.DataRelation("FK_tblTransactionItem_tblProduct", new global::System.Data.DataColumn[] {
+            this.relationtblProduct_tblTransactionItem = new global::System.Data.DataRelation("tblProduct_tblTransactionItem", new global::System.Data.DataColumn[] {
                         this.tabletblProduct.productIdColumn}, new global::System.Data.DataColumn[] {
                         this.tabletblTransactionItem.productIdColumn}, false);
-            this.Relations.Add(this.relationFK_tblTransactionItem_tblProduct);
-            this.relationFK_tblProduct_tblCategory = new global::System.Data.DataRelation("FK_tblProduct_tblCategory", new global::System.Data.DataColumn[] {
+            this.Relations.Add(this.relationtblProduct_tblTransactionItem);
+            this.relationtblTransaction_tblTransactionItem = new global::System.Data.DataRelation("tblTransaction_tblTransactionItem", new global::System.Data.DataColumn[] {
+                        this.tabletblTransaction.transactionIdColumn}, new global::System.Data.DataColumn[] {
+                        this.tabletblTransactionItem.transactionIdColumn}, false);
+            this.Relations.Add(this.relationtblTransaction_tblTransactionItem);
+            this.relationtblCategory_tblProduct = new global::System.Data.DataRelation("tblCategory_tblProduct", new global::System.Data.DataColumn[] {
                         this.tabletblCategory.categoryIdColumn}, new global::System.Data.DataColumn[] {
                         this.tabletblProduct.categoryIdColumn}, false);
-            this.Relations.Add(this.relationFK_tblProduct_tblCategory);
+            this.Relations.Add(this.relationtblCategory_tblProduct);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -876,15 +883,18 @@ namespace NewPOS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tblTransactionItemRow AddtblTransactionItemRow(int transactionId, tblProductRow parenttblProductRowByFK_tblTransactionItem_tblProduct, int userId) {
+            public tblTransactionItemRow AddtblTransactionItemRow(tblTransactionRow parenttblTransactionRowBytblTransaction_tblTransactionItem, tblProductRow parenttblProductRowBytblProduct_tblTransactionItem, int userId) {
                 tblTransactionItemRow rowtblTransactionItemRow = ((tblTransactionItemRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        transactionId,
+                        null,
                         null,
                         userId};
-                if ((parenttblProductRowByFK_tblTransactionItem_tblProduct != null)) {
-                    columnValuesArray[2] = parenttblProductRowByFK_tblTransactionItem_tblProduct[0];
+                if ((parenttblTransactionRowBytblTransaction_tblTransactionItem != null)) {
+                    columnValuesArray[1] = parenttblTransactionRowBytblTransaction_tblTransactionItem[0];
+                }
+                if ((parenttblProductRowBytblProduct_tblTransactionItem != null)) {
+                    columnValuesArray[2] = parenttblProductRowBytblProduct_tblTransactionItem[0];
                 }
                 rowtblTransactionItemRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtblTransactionItemRow);
@@ -2231,7 +2241,7 @@ namespace NewPOS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tblProductRow AddtblProductRow(string productName, decimal productPrice, byte[] productImage, tblCategoryRow parenttblCategoryRowByFK_tblProduct_tblCategory, int openingstock, int amountsold, int alertthreshold) {
+            public tblProductRow AddtblProductRow(string productName, decimal productPrice, byte[] productImage, tblCategoryRow parenttblCategoryRowBytblCategory_tblProduct, int openingstock, int amountsold, int alertthreshold) {
                 tblProductRow rowtblProductRow = ((tblProductRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -2242,8 +2252,8 @@ namespace NewPOS {
                         openingstock,
                         amountsold,
                         alertthreshold};
-                if ((parenttblCategoryRowByFK_tblProduct_tblCategory != null)) {
-                    columnValuesArray[4] = parenttblCategoryRowByFK_tblProduct_tblCategory[0];
+                if ((parenttblCategoryRowBytblCategory_tblProduct != null)) {
+                    columnValuesArray[4] = parenttblCategoryRowBytblCategory_tblProduct[0];
                 }
                 rowtblProductRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtblProductRow);
@@ -2522,11 +2532,11 @@ namespace NewPOS {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public tblProductRow[] GettblProductRows() {
-                if ((this.Table.ChildRelations["FK_tblProduct_tblCategory"] == null)) {
+                if ((this.Table.ChildRelations["tblCategory_tblProduct"] == null)) {
                     return new tblProductRow[0];
                 }
                 else {
-                    return ((tblProductRow[])(base.GetChildRows(this.Table.ChildRelations["FK_tblProduct_tblCategory"])));
+                    return ((tblProductRow[])(base.GetChildRows(this.Table.ChildRelations["tblCategory_tblProduct"])));
                 }
             }
         }
@@ -2608,10 +2618,21 @@ namespace NewPOS {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public tblProductRow tblProductRow {
                 get {
-                    return ((tblProductRow)(this.GetParentRow(this.Table.ParentRelations["FK_tblTransactionItem_tblProduct"])));
+                    return ((tblProductRow)(this.GetParentRow(this.Table.ParentRelations["tblProduct_tblTransactionItem"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_tblTransactionItem_tblProduct"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["tblProduct_tblTransactionItem"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public tblTransactionRow tblTransactionRow {
+                get {
+                    return ((tblTransactionRow)(this.GetParentRow(this.Table.ParentRelations["tblTransaction_tblTransactionItem"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["tblTransaction_tblTransactionItem"]);
                 }
             }
             
@@ -3136,6 +3157,17 @@ namespace NewPOS {
             public void SetcashlessNull() {
                 this[this.tabletblTransaction.cashlessColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public tblTransactionItemRow[] GettblTransactionItemRows() {
+                if ((this.Table.ChildRelations["tblTransaction_tblTransactionItem"] == null)) {
+                    return new tblTransactionItemRow[0];
+                }
+                else {
+                    return ((tblTransactionItemRow[])(base.GetChildRows(this.Table.ChildRelations["tblTransaction_tblTransactionItem"])));
+                }
+            }
         }
         
         /// <summary>
@@ -3279,10 +3311,10 @@ namespace NewPOS {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public tblCategoryRow tblCategoryRow {
                 get {
-                    return ((tblCategoryRow)(this.GetParentRow(this.Table.ParentRelations["FK_tblProduct_tblCategory"])));
+                    return ((tblCategoryRow)(this.GetParentRow(this.Table.ParentRelations["tblCategory_tblProduct"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_tblProduct_tblCategory"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["tblCategory_tblProduct"]);
                 }
             }
             
@@ -3373,11 +3405,11 @@ namespace NewPOS {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public tblTransactionItemRow[] GettblTransactionItemRows() {
-                if ((this.Table.ChildRelations["FK_tblTransactionItem_tblProduct"] == null)) {
+                if ((this.Table.ChildRelations["tblProduct_tblTransactionItem"] == null)) {
                     return new tblTransactionItemRow[0];
                 }
                 else {
-                    return ((tblTransactionItemRow[])(base.GetChildRows(this.Table.ChildRelations["FK_tblTransactionItem_tblProduct"])));
+                    return ((tblTransactionItemRow[])(base.GetChildRows(this.Table.ChildRelations["tblProduct_tblTransactionItem"])));
                 }
             }
         }
@@ -6497,7 +6529,7 @@ SELECT productId, productName, productPrice, productImage, categoryId, openingst
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::NewPOS.Properties.Settings.Default.C__USERS_PUBLIC_DOCUMENTS_NEWPOS_BIN_DEBUG_DATABASE1_MDFConnectionString;
+            this._connection.ConnectionString = global::NewPOS.Properties.Settings.Default.C__USERS_G4_DOCUMENTS_VISUAL_STUDIO_2015_PROJECTS_NEWPOS_BIN_DEBUG_DATABASE1_MDFConnectionString1;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6511,33 +6543,12 @@ SELECT productId, productName, productPrice, productImage, categoryId, openingst
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"UPDATE       tblProduct
-SET                openingstock = @openingstock, amountsold = @amountsold, categoryId =
-WHERE        (productId = @Original_productId) AND (@IsNull_productName = 1 AND productName IS NULL OR
-                         productName = @Original_productName) AND (@IsNull_productPrice = 1 AND productPrice IS NULL OR
-                         productPrice = @Original_productPrice) AND (@IsNull_categoryId = 1 AND categoryId IS NULL OR
-                         categoryId = @Original_categoryId) AND (@IsNull_openingstock = 1 AND openingstock IS NULL OR
-                         openingstock = @Original_openingstock) AND (@IsNull_amountsold = 1 AND amountsold IS NULL OR
-                         amountsold = @Original_amountsold) AND (@IsNull_alertthreshold = 1 AND alertthreshold IS NULL OR
-                         alertthreshold = @Original_alertthreshold); 
-SELECT productId, productName, productPrice, productImage, categoryId, openingstock, amountsold, alertthreshold FROM tblProduct WHERE (productId = @productId)";
+            this._commandCollection[1].CommandText = "UPDATE       tblProduct\r\nSET                openingstock = @openingstock, amounts" +
+                "old = @amountsold\r\nWHERE        (productId = @Original_productId)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@openingstock", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "openingstock", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@amountsold", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "amountsold", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_productId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "productId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_productName", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "productName", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_productName", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "productName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_productPrice", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "productPrice", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_productPrice", global::System.Data.SqlDbType.Decimal, 9, global::System.Data.ParameterDirection.Input, 18, 2, "productPrice", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_categoryId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "categoryId", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_categoryId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "categoryId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_openingstock", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "openingstock", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_openingstock", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "openingstock", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_amountsold", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "amountsold", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_amountsold", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "amountsold", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_alertthreshold", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "alertthreshold", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_alertthreshold", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "alertthreshold", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@productId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "productId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6851,23 +6862,7 @@ SELECT productId, productName, productPrice, productImage, categoryId, openingst
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
-        public virtual int UpdateStockQuery(
-                    global::System.Nullable<int> openingstock, 
-                    global::System.Nullable<int> amountsold, 
-                    int Original_productId, 
-                    global::System.Nullable<int> IsNull_productName, 
-                    string Original_productName, 
-                    global::System.Nullable<int> IsNull_productPrice, 
-                    global::System.Nullable<decimal> Original_productPrice, 
-                    global::System.Nullable<int> IsNull_categoryId, 
-                    global::System.Nullable<int> Original_categoryId, 
-                    global::System.Nullable<int> IsNull_openingstock, 
-                    global::System.Nullable<int> Original_openingstock, 
-                    global::System.Nullable<int> IsNull_amountsold, 
-                    global::System.Nullable<int> Original_amountsold, 
-                    global::System.Nullable<int> IsNull_alertthreshold, 
-                    global::System.Nullable<int> Original_alertthreshold, 
-                    int productId) {
+        public virtual int UpdateStockQuery(global::System.Nullable<int> openingstock, global::System.Nullable<int> amountsold, int Original_productId) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
             if ((openingstock.HasValue == true)) {
                 command.Parameters[0].Value = ((int)(openingstock.Value));
@@ -6882,79 +6877,6 @@ SELECT productId, productName, productPrice, productImage, categoryId, openingst
                 command.Parameters[1].Value = global::System.DBNull.Value;
             }
             command.Parameters[2].Value = ((int)(Original_productId));
-            if ((IsNull_productName.HasValue == true)) {
-                command.Parameters[3].Value = ((int)(IsNull_productName.Value));
-            }
-            else {
-                command.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            if ((Original_productName == null)) {
-                command.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            else {
-                command.Parameters[4].Value = ((string)(Original_productName));
-            }
-            if ((IsNull_productPrice.HasValue == true)) {
-                command.Parameters[5].Value = ((int)(IsNull_productPrice.Value));
-            }
-            else {
-                command.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            if ((Original_productPrice.HasValue == true)) {
-                command.Parameters[6].Value = ((decimal)(Original_productPrice.Value));
-            }
-            else {
-                command.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            if ((IsNull_categoryId.HasValue == true)) {
-                command.Parameters[7].Value = ((int)(IsNull_categoryId.Value));
-            }
-            else {
-                command.Parameters[7].Value = global::System.DBNull.Value;
-            }
-            if ((Original_categoryId.HasValue == true)) {
-                command.Parameters[8].Value = ((int)(Original_categoryId.Value));
-            }
-            else {
-                command.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            if ((IsNull_openingstock.HasValue == true)) {
-                command.Parameters[9].Value = ((int)(IsNull_openingstock.Value));
-            }
-            else {
-                command.Parameters[9].Value = global::System.DBNull.Value;
-            }
-            if ((Original_openingstock.HasValue == true)) {
-                command.Parameters[10].Value = ((int)(Original_openingstock.Value));
-            }
-            else {
-                command.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            if ((IsNull_amountsold.HasValue == true)) {
-                command.Parameters[11].Value = ((int)(IsNull_amountsold.Value));
-            }
-            else {
-                command.Parameters[11].Value = global::System.DBNull.Value;
-            }
-            if ((Original_amountsold.HasValue == true)) {
-                command.Parameters[12].Value = ((int)(Original_amountsold.Value));
-            }
-            else {
-                command.Parameters[12].Value = global::System.DBNull.Value;
-            }
-            if ((IsNull_alertthreshold.HasValue == true)) {
-                command.Parameters[13].Value = ((int)(IsNull_alertthreshold.Value));
-            }
-            else {
-                command.Parameters[13].Value = global::System.DBNull.Value;
-            }
-            if ((Original_alertthreshold.HasValue == true)) {
-                command.Parameters[14].Value = ((int)(Original_alertthreshold.Value));
-            }
-            else {
-                command.Parameters[14].Value = global::System.DBNull.Value;
-            }
-            command.Parameters[15].Value = ((int)(productId));
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7190,6 +7112,15 @@ SELECT productId, productName, productPrice, productImage, categoryId, openingst
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._tblTransactionTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tblTransaction.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._tblTransactionTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._tblProductTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.tblProduct.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -7226,15 +7157,6 @@ SELECT productId, productName, productPrice, productImage, categoryId, openingst
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._tblTransactionTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tblTransaction.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._tblTransactionTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             return result;
         }
         
@@ -7250,6 +7172,14 @@ SELECT productId, productName, productPrice, productImage, categoryId, openingst
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._tblCategoryTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._tblTransactionTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tblTransaction.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._tblTransactionTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -7285,14 +7215,6 @@ SELECT productId, productName, productPrice, productImage, categoryId, openingst
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._tblTransactionTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tblTransaction.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._tblTransactionTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             return result;
         }
         
@@ -7303,14 +7225,6 @@ SELECT productId, productName, productPrice, productImage, categoryId, openingst
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateDeletedRows(summaryreport dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._tblTransactionTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tblTransaction.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._tblTransactionTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._tblCompanyDetailsTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.tblCompanyDetails.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -7340,6 +7254,14 @@ SELECT productId, productName, productPrice, productImage, categoryId, openingst
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._tblProductTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._tblTransactionTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tblTransaction.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._tblTransactionTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }

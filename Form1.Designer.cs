@@ -151,12 +151,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblHello.AutoSize = true;
-            this.lblHello.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.lblHello.BackColor = System.Drawing.Color.Linen;
             this.lblHello.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblHello.Location = new System.Drawing.Point(4, 30);
+            this.lblHello.Location = new System.Drawing.Point(737, 4);
             this.lblHello.Name = "lblHello";
-            this.lblHello.Size = new System.Drawing.Size(0, 20);
+            this.lblHello.Size = new System.Drawing.Size(53, 20);
             this.lblHello.TabIndex = 7;
+            this.lblHello.Text = "status";
             // 
             // btnPay
             // 
@@ -310,20 +311,20 @@
             // taxationToolStripMenuItem
             // 
             this.taxationToolStripMenuItem.Name = "taxationToolStripMenuItem";
-            this.taxationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.taxationToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.taxationToolStripMenuItem.Text = "Tax Manager";
             this.taxationToolStripMenuItem.Click += new System.EventHandler(this.taxationToolStripMenuItem_Click);
             // 
             // currencyToolStripMenuItem
             // 
             this.currencyToolStripMenuItem.Name = "currencyToolStripMenuItem";
-            this.currencyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.currencyToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.currencyToolStripMenuItem.Text = "Currency";
             // 
             // receiptsToolStripMenuItem
             // 
             this.receiptsToolStripMenuItem.Name = "receiptsToolStripMenuItem";
-            this.receiptsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.receiptsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.receiptsToolStripMenuItem.Text = "CRUD Logs";
             // 
             // helpToolStripMenuItem

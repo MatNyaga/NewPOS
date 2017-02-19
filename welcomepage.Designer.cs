@@ -33,7 +33,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.next = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.SandboxRadio = new System.Windows.Forms.RadioButton();
+            this.LiveRadio = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -79,12 +83,47 @@
             this.pictureBox2.TabIndex = 10;
             this.pictureBox2.TabStop = false;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.SandboxRadio);
+            this.groupBox1.Controls.Add(this.LiveRadio);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(376, 2);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(143, 62);
+            this.groupBox1.TabIndex = 15;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Server";
+            // 
+            // SandboxRadio
+            // 
+            this.SandboxRadio.AutoSize = true;
+            this.SandboxRadio.Location = new System.Drawing.Point(31, 39);
+            this.SandboxRadio.Name = "SandboxRadio";
+            this.SandboxRadio.Size = new System.Drawing.Size(80, 20);
+            this.SandboxRadio.TabIndex = 12;
+            this.SandboxRadio.Text = "Sandbox";
+            this.SandboxRadio.UseVisualStyleBackColor = true;
+            this.SandboxRadio.CheckedChanged += new System.EventHandler(this.SandboxRadio_CheckedChanged);
+            // 
+            // LiveRadio
+            // 
+            this.LiveRadio.AutoSize = true;
+            this.LiveRadio.Location = new System.Drawing.Point(31, 19);
+            this.LiveRadio.Name = "LiveRadio";
+            this.LiveRadio.Size = new System.Drawing.Size(51, 20);
+            this.LiveRadio.TabIndex = 11;
+            this.LiveRadio.Text = "Live";
+            this.LiveRadio.UseVisualStyleBackColor = true;
+            this.LiveRadio.CheckedChanged += new System.EventHandler(this.LiveRadio_CheckedChanged);
+            // 
             // welcomepage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(527, 284);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.next);
             this.Controls.Add(this.label2);
@@ -95,6 +134,8 @@
             this.Text = "SwypePOS | Designed for Businesses/Merchants";
             this.Load += new System.EventHandler(this.welcomepage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -106,5 +147,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button next;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton SandboxRadio;
+        private System.Windows.Forms.RadioButton LiveRadio;
     }
 }

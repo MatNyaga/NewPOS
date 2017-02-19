@@ -21,22 +21,75 @@
     <Setting Name="C__USERS_G4_DOCUMENTS_VISUAL_STUDIO_2015_PROJECTS_NEWPOS_BIN_DEBUG_DATABASE1_MDFConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=(localdb)\MSSQLLocalDB;Initial Catalog="C:\USERS\G4\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\NEWPOS\BIN\DEBUG\DATABASE1.MDF";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True;Connect Timeout=30&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=(localdb)\MSSQLLocalDB;Initial Catalog="C:\USERS\G4\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\NEWPOS\BIN\DEBUG\DATABASE1.MDF";Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True</Value>
+      <Value Profile="(Default)">Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True;Connect Timeout=30</Value>
     </Setting>
     <Setting Name="loginuserapi" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/login-user</Value>
+      <Value Profile="(Default)">http://www.swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/login-user</Value>
     </Setting>
     <Setting Name="checkcardbalancewopassword" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/check-card-balance-without-password</Value>
+      <Value Profile="(Default)">http://www.swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/check-card-balance-without-password</Value>
     </Setting>
     <Setting Name="checkoutwopassword" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/check-out-without-password</Value>
+      <Value Profile="(Default)">http://www.swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/check-out-without-password</Value>
     </Setting>
     <Setting Name="cardcheckout" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/card-check-out</Value>
+      <Value Profile="(Default)">http://www.swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/card-check-out</Value>
+    </Setting>
+    <Setting Name="Live" Type="System.String" Scope="User">
+      <Value Profile="(Default)">No</Value>
+    </Setting>
+    <Setting Name="loginuserapiLive" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://www.swypepay.co.ke/frontend/web/index.php?r=user-profile/login-user</Value>
+    </Setting>
+    <Setting Name="checkcardbalancewopasswordLive" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://www.swypepay.co.ke/frontend/web/index.php?r=user-profile/check-card-balance-without-password</Value>
+    </Setting>
+    <Setting Name="checkoutwopasswordLive" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://www.swypepay.co.ke/frontend/web/index.php?r=user-profile/check-out-without-password</Value>
+    </Setting>
+    <Setting Name="cardcheckoutLive" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://www.swypepay.co.ke/frontend/web/index.php?r=user-profile/card-check-out</Value>
+    </Setting>
+    <Setting Name="VoucherLive" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://www.swypepay.co.ke/frontend/web/index.php?r=api/consumecredits</Value>
+    </Setting>
+    <Setting Name="Voucher" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://www.swypepay.co.ke/sandbox/frontend/web/index.php?r=api/consumecredits</Value>
+    </Setting>
+    <Setting Name="C__USERS_G4_DOCUMENTS_VISUAL_STUDIO_2015_PROJECTS_NEWPOS_BIN_DEBUG_DATABASE1_MDFConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True;Connect Timeout=30&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True;Connect Timeout=30</Value>
+    </Setting>
+    <Setting Name="Alerts" Type="System.String" Scope="User">
+      <Value Profile="(Default)">No</Value>
+    </Setting>
+    <Setting Name="Printer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">No</Value>
+    </Setting>
+    <Setting Name="LCD1_1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Welcome to Swype</Value>
+    </Setting>
+    <Setting Name="LCD1_2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Bal: </Value>
+    </Setting>
+    <Setting Name="LCD2_1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Processing...</Value>
+    </Setting>
+    <Setting Name="LCD2_2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Your Total Bill</Value>
+    </Setting>
+    <Setting Name="LCD3_1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Please tap your</Value>
+    </Setting>
+    <Setting Name="LCD3_2" Type="System.String" Scope="User">
+      <Value Profile="(Default)"> Card/Bracelet</Value>
     </Setting>
   </Settings>
 </SettingsFile>

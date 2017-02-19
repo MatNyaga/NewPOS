@@ -39,6 +39,9 @@
             this.cashlesspass = new System.Windows.Forms.TextBox();
             this.adminpass = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.ResettodefaultBtn = new System.Windows.Forms.Button();
+            this.print = new System.Windows.Forms.CheckBox();
+            this.acr1222llcdtxt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // llblRegister
@@ -69,7 +72,7 @@
             // 
             this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnSave.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnSave.Location = new System.Drawing.Point(308, 332);
+            this.btnSave.Location = new System.Drawing.Point(323, 352);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(150, 38);
@@ -154,12 +157,52 @@
             this.label4.TabIndex = 15;
             this.label4.Text = "Set Admin Pass:";
             // 
+            // ResettodefaultBtn
+            // 
+            this.ResettodefaultBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.ResettodefaultBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ResettodefaultBtn.Location = new System.Drawing.Point(190, 265);
+            this.ResettodefaultBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ResettodefaultBtn.Name = "ResettodefaultBtn";
+            this.ResettodefaultBtn.Size = new System.Drawing.Size(117, 38);
+            this.ResettodefaultBtn.TabIndex = 17;
+            this.ResettodefaultBtn.Text = "First Time Set Up";
+            this.ResettodefaultBtn.UseVisualStyleBackColor = false;
+            this.ResettodefaultBtn.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // print
+            // 
+            this.print.AutoSize = true;
+            this.print.Location = new System.Drawing.Point(190, 320);
+            this.print.Name = "print";
+            this.print.Size = new System.Drawing.Size(92, 17);
+            this.print.TabIndex = 18;
+            this.print.Text = "Print Receipts";
+            this.print.UseVisualStyleBackColor = true;
+            this.print.CheckedChanged += new System.EventHandler(this.print_CheckedChanged);
+            // 
+            // acr1222llcdtxt
+            // 
+            this.acr1222llcdtxt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.acr1222llcdtxt.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.acr1222llcdtxt.Location = new System.Drawing.Point(190, 217);
+            this.acr1222llcdtxt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.acr1222llcdtxt.Name = "acr1222llcdtxt";
+            this.acr1222llcdtxt.Size = new System.Drawing.Size(117, 38);
+            this.acr1222llcdtxt.TabIndex = 19;
+            this.acr1222llcdtxt.Text = "ACR1222L LCD Text";
+            this.acr1222llcdtxt.UseVisualStyleBackColor = false;
+            this.acr1222llcdtxt.Click += new System.EventHandler(this.acr1222llcdtxt_Click);
+            // 
             // Adminsettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(486, 404);
+            this.Controls.Add(this.acr1222llcdtxt);
+            this.Controls.Add(this.print);
+            this.Controls.Add(this.ResettodefaultBtn);
             this.Controls.Add(this.adminpass);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cashlesspass);
@@ -191,5 +234,8 @@
         private System.Windows.Forms.TextBox cashlesspass;
         private System.Windows.Forms.TextBox adminpass;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button ResettodefaultBtn;
+        private System.Windows.Forms.CheckBox print;
+        private System.Windows.Forms.Button acr1222llcdtxt;
     }
 }

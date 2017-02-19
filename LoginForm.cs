@@ -20,9 +20,18 @@ namespace NewPOS
 
         private void btnSignIn_Click(object sender, EventArgs e)
         {
+            btnSignIn.Enabled = false;
+            if (LiveRadio.Checked == false && SandboxRadio.Checked == false)
+            {
+                MessageBox.Show("Please select the server to use");
+                btnSignIn.Enabled = true;
+                return;
+            }
+
             if (txtUserName.Text == "" || txtPassword.Text == "")
             {
                 MessageBox.Show("Please enter Phone Number and password.");
+                btnSignIn.Enabled = true;
                 return;
             }
 
@@ -36,7 +45,7 @@ namespace NewPOS
 
                     Form1 f1 = new Form1();
 
-                    //f1.lblHello.Text = "User: " + p.userName;
+                    f1.lblHello.Text = "Logged In: " + p.userName;
 
                     f1.Show();
                     this.Hide();
@@ -49,6 +58,7 @@ namespace NewPOS
                 if (p.userName != txtUserName.Text || p.password != txtPassword.Text)
                 {
                     MessageBox.Show("Wrong Username and/or Password.");
+                    btnSignIn.Enabled = true;
                     return;
                 }
             }
@@ -73,7 +83,8 @@ namespace NewPOS
 
         private void label1_Click(object sender, EventArgs e)
         {
-
+            SandboxRadio.Checked = true;
+            LiveRadio.Checked = false;
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -151,6 +162,30 @@ namespace NewPOS
                 this.Hide();
 
                 return;
+            }
+        }
+
+        private void LiveRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (LiveRadio.Checked == true)
+            {
+                Properties.Settings.Default.Live = "Yes";
+            }
+            if (SandboxRadio.Checked == true)
+            {
+                Properties.Settings.Default.Live = "No";
+            }
+        }
+
+        private void SandboxRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (LiveRadio.Checked == true)
+            {
+                Properties.Settings.Default.Live = "Yes";
+            }
+            if (SandboxRadio.Checked == true)
+            {
+                Properties.Settings.Default.Live = "No";
             }
         }
     }

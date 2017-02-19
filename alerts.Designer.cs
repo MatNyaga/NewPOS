@@ -40,6 +40,7 @@
             this.tblProductTableAdapter = new NewPOS.summaryreportTableAdapters.tblProductTableAdapter();
             this.tblProductTableAdapter1 = new NewPOS.Database1DataSetTableAdapters.tblProductTableAdapter();
             this.label1 = new System.Windows.Forms.Label();
+            this.enablealerts = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblProductBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSet)).BeginInit();
@@ -124,12 +125,24 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Alert Threshold";
             // 
+            // enablealerts
+            // 
+            this.enablealerts.AutoSize = true;
+            this.enablealerts.Location = new System.Drawing.Point(12, 94);
+            this.enablealerts.Name = "enablealerts";
+            this.enablealerts.Size = new System.Drawing.Size(88, 17);
+            this.enablealerts.TabIndex = 2;
+            this.enablealerts.Text = "Enable Alerts";
+            this.enablealerts.UseVisualStyleBackColor = true;
+            this.enablealerts.CheckedChanged += new System.EventHandler(this.enablealerts_CheckedChanged);
+            // 
             // alerts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(678, 367);
+            this.Controls.Add(this.enablealerts);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "alerts";
@@ -158,5 +171,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn productNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn alertthresholdDataGridViewTextBoxColumn;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox enablealerts;
     }
 }

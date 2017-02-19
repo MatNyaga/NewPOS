@@ -27,7 +27,32 @@ namespace NewPOS
 
         private void welcomepage_Load(object sender, EventArgs e)
         {
+            SandboxRadio.Checked = true;
+            LiveRadio.Checked = true;
+        }
 
+        private void LiveRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (LiveRadio.Checked == true)
+            {
+                Properties.Settings.Default.Live = "Yes";
+            }
+            if (SandboxRadio.Checked == true)
+            {
+                Properties.Settings.Default.Live = "No";
+            }
+        }
+
+        private void SandboxRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (LiveRadio.Checked == true)
+            {
+                Properties.Settings.Default.Live = "Yes";
+            }
+            if (SandboxRadio.Checked == true)
+            {
+                Properties.Settings.Default.Live = "No";
+            }
         }
     }
 }

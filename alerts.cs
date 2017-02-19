@@ -24,6 +24,15 @@ namespace NewPOS
             // TODO: This line of code loads data into the 'summaryreport.tblProduct' table. You can move, or remove it, as needed.
             this.tblProductTableAdapter.Fill(this.summaryreport.tblProduct);
 
+            if (Properties.Settings.Default.Alerts == "Yes")
+            {
+                enablealerts.Checked = true; 
+            }
+            if (Properties.Settings.Default.Alerts == "No")
+            {
+                enablealerts.Checked = false;
+            }
+
         }
 
         private void dataGridView1_DataMemberChanged(object sender, EventArgs e)
@@ -39,6 +48,19 @@ namespace NewPOS
         private void dataGridView1_Validated(object sender, EventArgs e)
         {
             tblProductTableAdapter1.Update(this.database1DataSet.tblProduct);
+        }
+
+        private void enablealerts_CheckedChanged(object sender, EventArgs e)
+        {
+            if (enablealerts.Checked == true)
+            {
+                Properties.Settings.Default.Alerts = "Yes";
+            }
+            if (enablealerts.Checked == false)
+            {
+                Properties.Settings.Default.Alerts = "No";
+            }
+
         }
     }
 }

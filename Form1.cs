@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Printing;
 using System.Threading;
+using System.Globalization;
 
 namespace NewPOS
 {
@@ -22,6 +23,9 @@ namespace NewPOS
         byte[] dataProduct;
 
         byte[] dataCategory;
+
+        int openingstock = 0, alertthreshold = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -39,7 +43,9 @@ namespace NewPOS
             set
             {
                 total = value;
-                txtTotal.Text = String.Format("{0:c}", total);
+                var ri = new RegionInfo(System.Threading.Thread.CurrentThread.CurrentUICulture.LCID);
+                String mycurrency = ri.ISOCurrencySymbol + ". ";
+                txtTotal.Text = String.Format("{0:c}" ,total);
             }
         }
 
@@ -142,9 +148,37 @@ namespace NewPOS
 
                 txtDisplay.Text = product;
 
+                openingstock = tp.openingstock.GetValueOrDefault();
+
+                alertthreshold = tp.alertthreshold.GetValueOrDefault();
+
+                if (Properties.Settings.Default.Alerts == "Yes")
+                {
+                    try
+                    {
+                        if (openingstock <= alertthreshold)
+                        {
+                            showballon(tp.productName + " is running out, please be sure to restock.        Current Stock: " + openingstock, 1);
+                        }
+                    }
+                    catch (Exception ex) { }
+                }
+
+                try
+                {
+                    if (openingstock <= 0)
+                    {
+                        MessageBox.Show(tp.productName + " stock is down to zero");
+                        //return;
+                    }
+                }
+                catch (Exception ex) { }
+
                 products.Add(tp);
 
                 total += (decimal)tp.productPrice;
+                var ri = new RegionInfo(System.Threading.Thread.CurrentThread.CurrentUICulture.LCID);
+                String mycurrency = ri.ISOCurrencySymbol + ". ";
 
                 txtTotal.Text = String.Format("{0:c}", total);
             }
@@ -157,7 +191,11 @@ namespace NewPOS
             {
                 string ProductName = ((tblProduct)e.ListItem).productName;
 
+                var ri = new RegionInfo(System.Threading.Thread.CurrentThread.CurrentUICulture.LCID);
+                String mycurrency = ri.ISOCurrencySymbol + ". ";
                 string Price = String.Format("{0:c}", ((tblProduct)e.ListItem).productPrice);
+
+                //string Price = mycurrency + ((tblProduct)e.ListItem).productPrice;
 
                 string ProductNamePadded = ProductName.PadRight(45);
 
@@ -173,7 +211,6 @@ namespace NewPOS
             try
             {
                 string selectedItem = lbProductsToBuy.GetItemText(lbProductsToBuy.SelectedItem);
-
                 txtDisplay.Text = selectedItem.Remove(selectedItem.Length - 15);
             }
             catch
@@ -259,6 +296,7 @@ namespace NewPOS
         void pf1_cashlessPayedEv(String myuid)
         {
             tblTransaction transaction = new tblTransaction();
+            stockitem mystock = new stockitem();
 
             transaction.transactionDate = System.DateTime.Now;
             transaction.cashless = "SwypePay";
@@ -267,7 +305,8 @@ namespace NewPOS
             foreach (tblProduct prod in products)
             {
                 transaction.tblTransactionItem.Add(new tblTransactionItem() { productId = prod.productId });
-
+                mystock.UpdateStock(prod.productId, 1);
+                mystock.SaveStock(prod.productId);
             }
 
             dbe.tblTransaction.Add(transaction);
@@ -276,12 +315,21 @@ namespace NewPOS
 
             //MessageBox.Show("Success");
 
-            Print();
+            if (Properties.Settings.Default.Printer == "Yes")
+            {
+                Print();
+            }
+            if (Properties.Settings.Default.Printer == "No")
+            {
+               
+            }
+            
         }
 
         void pf1_PayedEv()
         {
             tblTransaction transaction = new tblTransaction();
+            stockitem mystock = new stockitem();
 
             transaction.transactionDate = System.DateTime.Now;
             transaction.cashless = "Cash";
@@ -290,7 +338,12 @@ namespace NewPOS
             foreach (tblProduct prod in products)
             {
                 transaction.tblTransactionItem.Add(new tblTransactionItem() { productId = prod.productId });
+                mystock.UpdateStock(prod.productId, 1);
+                //MessageBox.Show("" + mystock.currentstock);
+                mystock.SaveStock(prod.productId);
             }
+            
+            //MessageBox.Show(""+mystock.currentstock);
 
             dbe.tblTransaction.Add(transaction);
 
@@ -298,7 +351,15 @@ namespace NewPOS
 
             //MessageBox.Show("Success");
 
-            Print();
+            if (Properties.Settings.Default.Printer == "Yes")
+            {
+                Print();
+            }
+            if (Properties.Settings.Default.Printer == "No")
+            {
+
+            }
+
         }
 
         private void Print()
@@ -323,10 +384,13 @@ namespace NewPOS
             catch { }
         }
 
+
         void pDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
             try
             {
+                var ri = new RegionInfo(System.Threading.Thread.CurrentThread.CurrentUICulture.LCID);
+                String mycurrency = ri.ISOCurrencySymbol + ". ";
                 Graphics graph = e.Graphics;
 
                 Font fontWelcome = new Font("Segoe UI", 18);
@@ -426,6 +490,7 @@ namespace NewPOS
         private void Form1_Load(object sender, EventArgs e)
         {
             
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -461,14 +526,14 @@ namespace NewPOS
 
         }
 
-        private void showballon(string title, string text, int length)
+        private void showballon(string text, int length)
         {
             var notification = new System.Windows.Forms.NotifyIcon()
             {
                 Visible = true,
                 Icon = System.Drawing.SystemIcons.Information,
                 // optional - BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info,
-                BalloonTipTitle = title,
+                BalloonTipTitle = "Product Alert",
                 BalloonTipText = text,
             };
 

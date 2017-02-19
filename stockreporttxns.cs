@@ -1,4 +1,5 @@
-﻿using iTextSharp.text;
+﻿using ClosedXML.Excel;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
@@ -17,28 +18,46 @@ namespace NewPOS
     {
         Database1Entities dbe = new Database1Entities();
         DataTable stock = new DataTable();
+        DataTable products = new DataTable();
+        DataTable transactions = new DataTable();
+        DataTable transactionIDs = new DataTable();
         summaryreportTableAdapters.tblTransactionItemTableAdapter transactionstableadapter = new summaryreportTableAdapters.tblTransactionItemTableAdapter();
+        summaryreportTableAdapters.tblTransactionTableAdapter transactionproducttableadapter = new summaryreportTableAdapters.tblTransactionTableAdapter();
 
         public stockreporttxns()
         {
             InitializeComponent();
+            transactions = transactionproducttableadapter.GetData();
+            products = tblProductTableAdapter.GetData();
+            transactionIDs = transactionstableadapter.GetData();
         }
 
         private void filter_Click(object sender, EventArgs e)
         {
             stock = transactionstableadapter.stockreportDT(productname.Text);
+            products = tblProductTableAdapter.GetData();
+            
+            foreach (DataRow dr in products.Rows)
+            {
+                if (dr[1].ToString() == productname.Text)
+                {
+                    openingstcklbl.Text = dr[5].ToString() + " pcs";
+                    availablestock.Text = dr[7].ToString() + " pcs";
+                }
+            }
+
             label1.Text = stock.Rows.Count.ToString();
             dataGridView1.DataSource = stock;
             this.dataGridView1.Columns[0].Visible = false;
             this.dataGridView1.Columns[2].Visible = false;
             this.dataGridView1.Columns[3].Visible = false;
+
         }
 
         private void stockreporttxns_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'summaryreport.tblProduct' table. You can move, or remove it, as needed.
             this.tblProductTableAdapter.Fill(this.summaryreport.tblProduct);
-
         }
 
         public void ExportToPdf(DataTable dt, string path, string productname)
@@ -106,19 +125,35 @@ namespace NewPOS
 
         private void pdfexport_Click(object sender, EventArgs e)
         {
-            stock = transactionstableadapter.stockreportDT(productname.Text);
-            //stock.Columns.Remove("userId");
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
-            folderBrowserDialog.ShowNewFolderButton = true;
-            folderBrowserDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
-            DialogResult result = folderBrowserDialog.ShowDialog();
-            if (result == DialogResult.OK)
+            try
             {
-                string foldername = folderBrowserDialog.SelectedPath;
-                //
-                ExportToPdf(stock, foldername, productname.Text);
-                MessageBox.Show(this,"Report exported to: "+foldername + " successfully", "Success", MessageBoxButtons.OK,MessageBoxIcon.Information);
+                XLWorkbook wb = new XLWorkbook();
+                transactions.Columns.Add("Gender");
+                transactions.Columns.Add("PNumber");
+                foreach (DataRow dr in transactions.Rows)
+                {
+                    if (dr["cashless"].ToString().Trim() == "cash")
+                        dr["PNumber"] = "N/A";
+                }
+                wb.Worksheets.Add(transactions, "Transactions");
+                wb.Worksheets.Add(products, "Products");
+                wb.Worksheets.Add(transactionIDs, "Transaction IDs");
+                FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+                folderBrowserDialog.ShowNewFolderButton = true;
+                folderBrowserDialog.RootFolder = System.Environment.SpecialFolder.MyComputer;
+                DialogResult result = folderBrowserDialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    string foldername = folderBrowserDialog.SelectedPath;
+                    //
+                    wb.SaveAs(foldername + "\\StockReport.xlsx");
+                    MessageBox.Show(this, "Excel Sheet exported to: " + foldername + " successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
+            catch (Exception io) {
+                MessageBox.Show(io.Message);
+            }
+            
 
         }
 

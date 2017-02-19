@@ -55,6 +55,9 @@
             this.tblUsersTableAdapter = new NewPOS.summaryreportTableAdapters.tblUsersTableAdapter();
             this.tblCompanyDetailsTableAdapter = new NewPOS.summaryreportTableAdapters.tblCompanyDetailsTableAdapter();
             this.nyagauid = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.VoucherBtn = new System.Windows.Forms.Button();
+            this.payamnt = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tblCompanyDetailsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.summaryreport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblUsersBindingSource)).BeginInit();
@@ -76,14 +79,15 @@
             // cardid
             // 
             this.cardid.AutoSize = true;
-            this.cardid.Font = new System.Drawing.Font("Segoe UI Semibold", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cardid.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold);
             this.cardid.ForeColor = System.Drawing.Color.LimeGreen;
-            this.cardid.Location = new System.Drawing.Point(438, 296);
+            this.cardid.Location = new System.Drawing.Point(420, 297);
             this.cardid.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.cardid.Name = "cardid";
-            this.cardid.Size = new System.Drawing.Size(139, 47);
+            this.cardid.Size = new System.Drawing.Size(87, 30);
             this.cardid.TabIndex = 1;
             this.cardid.Text = "Card ID";
+            this.cardid.Click += new System.EventHandler(this.cardid_Click);
             // 
             // label2
             // 
@@ -271,7 +275,7 @@
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(147, 86);
             this.btnOk.TabIndex = 38;
-            this.btnOk.Text = "Enter";
+            this.btnOk.Text = "&Complete Payment";
             this.btnOk.UseVisualStyleBackColor = false;
             this.btnOk.Visible = false;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
@@ -281,7 +285,7 @@
             this.merchantcodecombo.DataSource = this.tblCompanyDetailsBindingSource;
             this.merchantcodecombo.DisplayMember = "swypecode";
             this.merchantcodecombo.FormattingEnabled = true;
-            this.merchantcodecombo.Location = new System.Drawing.Point(12, 12);
+            this.merchantcodecombo.Location = new System.Drawing.Point(12, 184);
             this.merchantcodecombo.Name = "merchantcodecombo";
             this.merchantcodecombo.Size = new System.Drawing.Size(83, 29);
             this.merchantcodecombo.TabIndex = 39;
@@ -312,7 +316,7 @@
             // 
             // nyagauid
             // 
-            this.nyagauid.Location = new System.Drawing.Point(20, 94);
+            this.nyagauid.Location = new System.Drawing.Point(20, 219);
             this.nyagauid.Name = "nyagauid";
             this.nyagauid.Size = new System.Drawing.Size(75, 37);
             this.nyagauid.TabIndex = 40;
@@ -320,6 +324,40 @@
             this.nyagauid.UseVisualStyleBackColor = true;
             this.nyagauid.Visible = false;
             this.nyagauid.Click += new System.EventHandler(this.nyagauid_Click);
+            // 
+            // button12
+            // 
+            this.button12.Image = global::NewPOS.Properties.Resources.Cycle_recycle_refresh_repeat_arrow_512;
+            this.button12.Location = new System.Drawing.Point(12, 12);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(75, 37);
+            this.button12.TabIndex = 41;
+            this.button12.Text = "Refresh";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // VoucherBtn
+            // 
+            this.VoucherBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.VoucherBtn.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.VoucherBtn.Location = new System.Drawing.Point(4, 56);
+            this.VoucherBtn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.VoucherBtn.Name = "VoucherBtn";
+            this.VoucherBtn.Size = new System.Drawing.Size(91, 49);
+            this.VoucherBtn.TabIndex = 42;
+            this.VoucherBtn.Text = "&Voucher";
+            this.VoucherBtn.UseVisualStyleBackColor = false;
+            this.VoucherBtn.Visible = false;
+            this.VoucherBtn.Click += new System.EventHandler(this.VoucherBtn_Click);
+            // 
+            // payamnt
+            // 
+            this.payamnt.AutoSize = true;
+            this.payamnt.Location = new System.Drawing.Point(436, 94);
+            this.payamnt.Name = "payamnt";
+            this.payamnt.Size = new System.Drawing.Size(19, 21);
+            this.payamnt.TabIndex = 43;
+            this.payamnt.Text = "...";
             // 
             // swypepayform
             // 
@@ -329,6 +367,9 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(622, 370);
+            this.Controls.Add(this.payamnt);
+            this.Controls.Add(this.VoucherBtn);
+            this.Controls.Add(this.button12);
             this.Controls.Add(this.nyagauid);
             this.Controls.Add(this.merchantcodecombo);
             this.Controls.Add(this.btnOk);
@@ -356,6 +397,8 @@
             this.Name = "swypepayform";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SwypePOS | Designed for Businesses/Merchants";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.swypepayform_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.swypepayform_FormClosed);
             this.Load += new System.EventHandler(this.swypepayform_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tblCompanyDetailsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.summaryreport)).EndInit();
@@ -392,5 +435,8 @@
         private System.Windows.Forms.BindingSource tblCompanyDetailsBindingSource;
         private summaryreportTableAdapters.tblCompanyDetailsTableAdapter tblCompanyDetailsTableAdapter;
         private System.Windows.Forms.Button nyagauid;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button VoucherBtn;
+        private System.Windows.Forms.Label payamnt;
     }
 }

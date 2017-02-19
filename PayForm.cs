@@ -71,7 +71,9 @@ namespace NewPOS
                 }
                 else
                 {
-                    label2.Text = mycurrency+ -total;
+                    var ri = new RegionInfo(System.Threading.Thread.CurrentThread.CurrentUICulture.LCID);
+                    mycurrency = ri.ISOCurrencySymbol + ". ";
+                    label2.Text = String.Format("{0:c}", -total);
                     btnOk.Enabled = false;
                     MessageBox.Show("Transaction Sucessful");
                     PayedEv();
@@ -86,7 +88,7 @@ namespace NewPOS
         {
             var ri = new RegionInfo(System.Threading.Thread.CurrentThread.CurrentUICulture.LCID);
             mycurrency = ri.ISOCurrencySymbol + ". ";
-            label2.Text = mycurrency;
+            //label2.Text = String.Format("{0:c}",".");
         }
 
         private void button1_Click(object sender, EventArgs e)

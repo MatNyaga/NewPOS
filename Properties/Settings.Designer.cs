@@ -48,9 +48,8 @@ namespace NewPOS.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=\"C:\\USERS\\G4\\DOCUMENTS\\VISUAL " +
-            "STUDIO 2015\\PROJECTS\\NEWPOS\\BIN\\DEBUG\\DATABASE1.MDF\";Integrated Security=True;Co" +
-            "nnect Timeout=30;Encrypt=False;TrustServerCertificate=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database1.mdf" +
+            ";Integrated Security=True;Connect Timeout=30")]
         public string C__USERS_G4_DOCUMENTS_VISUAL_STUDIO_2015_PROJECTS_NEWPOS_BIN_DEBUG_DATABASE1_MDFConnectionString {
             get {
                 return ((string)(this["C__USERS_G4_DOCUMENTS_VISUAL_STUDIO_2015_PROJECTS_NEWPOS_BIN_DEBUG_DATABASE1_MDFC" +
@@ -60,7 +59,8 @@ namespace NewPOS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/login-user")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/login-use" +
+            "r")]
         public string loginuserapi {
             get {
                 return ((string)(this["loginuserapi"]));
@@ -69,8 +69,8 @@ namespace NewPOS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/check-card-ba" +
-            "lance-without-password")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/check-car" +
+            "d-balance-without-password")]
         public string checkcardbalancewopassword {
             get {
                 return ((string)(this["checkcardbalancewopassword"]));
@@ -79,8 +79,8 @@ namespace NewPOS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/check-out-wit" +
-            "hout-password")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/check-out" +
+            "-without-password")]
         public string checkoutwopassword {
             get {
                 return ((string)(this["checkoutwopassword"]));
@@ -89,11 +89,187 @@ namespace NewPOS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/card-check-ou" +
-            "t")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.swypepay.co.ke/sandbox/frontend/web/index.php?r=user-profile/card-chec" +
+            "k-out")]
         public string cardcheckout {
             get {
                 return ((string)(this["cardcheckout"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("No")]
+        public string Live {
+            get {
+                return ((string)(this["Live"]));
+            }
+            set {
+                this["Live"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.swypepay.co.ke/frontend/web/index.php?r=user-profile/login-user")]
+        public string loginuserapiLive {
+            get {
+                return ((string)(this["loginuserapiLive"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.swypepay.co.ke/frontend/web/index.php?r=user-profile/check-card-balanc" +
+            "e-without-password")]
+        public string checkcardbalancewopasswordLive {
+            get {
+                return ((string)(this["checkcardbalancewopasswordLive"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.swypepay.co.ke/frontend/web/index.php?r=user-profile/check-out-without" +
+            "-password")]
+        public string checkoutwopasswordLive {
+            get {
+                return ((string)(this["checkoutwopasswordLive"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.swypepay.co.ke/frontend/web/index.php?r=user-profile/card-check-out")]
+        public string cardcheckoutLive {
+            get {
+                return ((string)(this["cardcheckoutLive"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.swypepay.co.ke/frontend/web/index.php?r=api/consumecredits")]
+        public string VoucherLive {
+            get {
+                return ((string)(this["VoucherLive"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.swypepay.co.ke/sandbox/frontend/web/index.php?r=api/consumecredits")]
+        public string Voucher {
+            get {
+                return ((string)(this["Voucher"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database1.mdf" +
+            ";Integrated Security=True;Connect Timeout=30")]
+        public string C__USERS_G4_DOCUMENTS_VISUAL_STUDIO_2015_PROJECTS_NEWPOS_BIN_DEBUG_DATABASE1_MDFConnectionString1 {
+            get {
+                return ((string)(this["C__USERS_G4_DOCUMENTS_VISUAL_STUDIO_2015_PROJECTS_NEWPOS_BIN_DEBUG_DATABASE1_MDFC" +
+                    "onnectionString1"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("No")]
+        public string Alerts {
+            get {
+                return ((string)(this["Alerts"]));
+            }
+            set {
+                this["Alerts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("No")]
+        public string Printer {
+            get {
+                return ((string)(this["Printer"]));
+            }
+            set {
+                this["Printer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Welcome to Swype")]
+        public string LCD1_1 {
+            get {
+                return ((string)(this["LCD1_1"]));
+            }
+            set {
+                this["LCD1_1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Bal: ")]
+        public string LCD1_2 {
+            get {
+                return ((string)(this["LCD1_2"]));
+            }
+            set {
+                this["LCD1_2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Processing...")]
+        public string LCD2_1 {
+            get {
+                return ((string)(this["LCD2_1"]));
+            }
+            set {
+                this["LCD2_1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Your Total Bill")]
+        public string LCD2_2 {
+            get {
+                return ((string)(this["LCD2_2"]));
+            }
+            set {
+                this["LCD2_2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Please tap your")]
+        public string LCD3_1 {
+            get {
+                return ((string)(this["LCD3_1"]));
+            }
+            set {
+                this["LCD3_1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(" Card/Bracelet")]
+        public string LCD3_2 {
+            get {
+                return ((string)(this["LCD3_2"]));
+            }
+            set {
+                this["LCD3_2"] = value;
             }
         }
     }

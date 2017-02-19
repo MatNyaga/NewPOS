@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using usbNfcReader;
 using Flurl.Http;
+using Acs;
 
 namespace NewPOS
 {
@@ -27,6 +28,7 @@ namespace NewPOS
         int cashlesslimit = 0;
         int crdbalance = 0;
         Boolean pass = true;
+        Acr1222L acr1222SmartCardReader = new Acr1222L();
         DataTable mycompany = new DataTable();
         summaryreportTableAdapters.tblCompanyDetailsTableAdapter summarytableadapter = new summaryreportTableAdapters.tblCompanyDetailsTableAdapter();
         
@@ -47,16 +49,105 @@ namespace NewPOS
                 amountToPay = value;
             }
         }
+        private string SubstringIx(string value, int startIndex, int endIndex)
+        {
+            if (value == null) throw new ArgumentNullException();
+            if (endIndex > value.Length) throw new IndexOutOfRangeException("End index must be less than or equal to the length of the string.");
+            if (startIndex < 0 || startIndex > value.Length + 1) throw new IndexOutOfRangeException("Start index must be between zero and the length of the string minus one");
+            if (startIndex >= endIndex) throw new ArgumentOutOfRangeException("Start index must be less then end index");
+
+            var length = endIndex - startIndex;
+            return value.Substring(startIndex, length);
+        }
 
 
 
         public async void StartPoll(object sender, DoWorkEventArgs e)
-        {
+        {/*
+            using (var context = contextFactory.Establish(SCardScope.System))
+            {
+
+                var readerNames = context.GetReaders();
+                if (NoReaderFound(readerNames))
+                {
+                    label1.Text = ("You need at least one reader in order to run this example.");
+                    return;
+                }
+
+                var readerName = ChooseRfidReader(readerNames);
+                if (readerName == null)
+                {
+                    return;
+                }
+
+                // 'using' statement to make sure the reader will be disposed (disconnected) on exit
+                using (var rfidReader = new SCardReader(context))
+                {
+                    var sc = rfidReader.Connect(readerName, SCardShareMode.Shared, SCardProtocol.Any);
+                    if (sc != SCardError.Success)
+                    {
+                        label1.Text = ("Could not connect to reader {0}:\n{1}" + readerName + SCardHelper.StringifyError(sc));
+                        return;
+                    }
+
+                    var apdu = new CommandApdu(IsoCase.Case2Short, rfidReader.ActiveProtocol)
+                    {
+                        CLA = 0xFF,
+                        Instruction = InstructionCode.GetData,
+                        P1 = 0x00,
+                        P2 = 0x00,
+                        Le = 0 // We don't know the ID tag size
+                    };
+
+                    sc = rfidReader.BeginTransaction();
+                    if (sc != SCardError.Success)
+                    {
+                        label1.Text = ("Could not begin transaction.");
+                        return;
+                    }
+
+                    label1.Text = ("Retrieving the UID .... ");
+
+                    var receivePci = new SCardPCI(); // IO returned protocol control information.
+                    var sendPci = SCardPCI.GetPci(rfidReader.ActiveProtocol);
+
+                    var receiveBuffer = new byte[256];
+                    var command = apdu.ToArray();
+
+                    sc = rfidReader.Transmit(
+                        sendPci, // Protocol Control Information (T0, T1 or Raw)
+                        command, // command APDU
+                        receivePci, // returning Protocol Control Information
+                        ref receiveBuffer); // data buffer
+
+                    if (sc != SCardError.Success)
+                    {
+                        label1.Text = ("Error: " + SCardHelper.StringifyError(sc));
+                    }
+
+                    var responseApdu = new ResponseApdu(receiveBuffer, IsoCase.Case2Short, rfidReader.ActiveProtocol);
+                    label1.Text = ("SW1: {0:X2}, SW2: {1:X2}\nUid: {2}" + responseApdu.SW1 + responseApdu.SW2);
+
+                    if (responseApdu.HasData)
+                    {
+                        label2.Text = BitConverter.ToString(responseApdu.GetData());
+                    }
+                    else
+                    {
+                        label2.Text = "No uid received";
+                    }
+                    rfidReader.EndTransaction(SCardReaderDisposition.Leave);
+                    rfidReader.Disconnect(SCardReaderDisposition.Reset);
+
+                }
+
+            }
+            */
+
             if (myListOfReaders.Count <= 0) return;
 
             string Reader = myListOfReaders[0];
             nfcreader1.connect(myListOfReaders[0]);
-
             try
             {
                 string uid = string.Empty;
@@ -100,7 +191,18 @@ namespace NewPOS
 
                 UID = e.Result.ToString();
                 cardid.Text = UID;
+                nfcreader1.stopPoll();
 
+                if (cardid.Text == UID) {
+
+                    if (myListOfReaders[0].Contains("ACR1222"))
+                    {
+                        acr1222lreader(true, Properties.Settings.Default.LCD2_1, " ", "blue");
+                    }
+                   
+                    
+                    
+                }
                 Run: myPollThread.RunWorkerAsync();
 
 
@@ -145,13 +247,14 @@ namespace NewPOS
             catch (Exception ioe) { }
         }
 
-        private void swypepayform_Load(object sender, EventArgs e)
+        private async void swypepayform_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'summaryreport.tblCompanyDetails' table. You can move, or remove it, as needed.
             this.tblCompanyDetailsTableAdapter.Fill(this.summaryreport.tblCompanyDetails);
             // TODO: This line of code loads data into the 'summaryreport.tblUsers' table. You can move, or remove it, as needed.
             this.tblUsersTableAdapter.Fill(this.summaryreport.tblUsers);
             string uid = string.Empty;
+            payamnt.Text = String.Format("{0:c} ", amountToPay);
             merchantcode = merchantcodecombo.Text;
             try
             {
@@ -169,12 +272,110 @@ namespace NewPOS
 
             myPollThread.DoWork += new DoWorkEventHandler(StartPoll);
             myPollThread.RunWorkerCompleted += new RunWorkerCompletedEventHandler(TaskCompleted);
-
+            if (myListOfReaders[0].Contains("ACR1222"))
+            {
+            acr1222lreader(true, Properties.Settings.Default.LCD2_2, "   "+payamnt.Text,"none");
+            await Task.Delay(2000);
+            //Timer timer = new Timer(new TimerCallback(timerCb), null, 1000, 0);
+            acr1222lreader(true, Properties.Settings.Default.LCD3_1, Properties.Settings.Default.LCD3_2, "none");
+            }
+            
+            
+            
             mytimer.Enabled = true;
             mytimer.Interval = 2000;
             mytimer.Tick += new EventHandler(Mytimer_Tick);
-
             
+        }
+        /*
+        private void timerCb(object state)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                label1.Content = "Foo!";
+            });
+        }
+        */
+        private void acr1222lreader (Boolean Backlight, string firstlinemessage, string secondlinemessage, string led)
+        { 
+            try
+            {
+                string Reader = myListOfReaders[0];
+                acr1222SmartCardReader.readerName = Reader;
+                acr1222SmartCardReader.connectDirect();
+                if (Backlight)
+                {
+                    acr1222SmartCardReader.backlight(true);
+                }
+                else
+                {
+                    acr1222SmartCardReader.backlight(false);
+                }
+                //MessageBox.Show( acr1222SmartCardReader.getTagUID());
+                //text on screen
+                acr1222SmartCardReader.clearLcd();
+                LedStatus myled = new LedStatus();
+                LcdDisplayParameter parameter = new LcdDisplayParameter();
+
+                if (led == "none")
+                {
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off, LedStateSwitch.Off);
+
+                }
+                if (led == "blue")
+                {
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off, LedStateSwitch.Off);
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off);
+                }
+                if (led == "orange")
+                {
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.On, LedStateSwitch.Off);
+                }
+                if (led == "red")
+                {
+                    acr1222SmartCardReader.ledControl(LedStateSwitch.On, LedStateSwitch.Off, LedStateSwitch.Off, LedStateSwitch.On);
+                }
+                parameter.message = firstlinemessage;
+                //parameter.boldFont = CheckBoxBoldFont.Checked;
+                parameter.positionLineNumber = (byte)(0 + 1);
+                parameter.positionOffset = (byte)(0);
+                parameter.fontSet = FontSet.SetA;
+                acr1222SmartCardReader.displayLcd(parameter);
+
+                parameter.message = secondlinemessage;
+                //parameter.boldFont = CheckBoxBoldFont.Checked;
+                parameter.positionLineNumber = (byte)(0 + 2);
+                parameter.positionOffset = (byte)(0);
+                parameter.fontSet = FontSet.SetA;
+                acr1222SmartCardReader.displayLcd(parameter);
+                acr1222SmartCardReader.disconnect();
+            }
+
+            catch (PcscException acr1222Ex)
+            {
+                //showPcscException(acr1222Ex.Message);
+            }
+            catch (Exception ex)
+            {
+                //showSystemException(ex.Message);
+            }
         }
 
         private async void Mytimer_Tick(object sender, EventArgs e)
@@ -288,17 +489,76 @@ namespace NewPOS
         {
             txtPaymentAmount.Text = "";
         }
+        public String errormessagesline1(string input)
+        {
+            if (input.Contains("ERROR_CARD_INACTIVE"))
+            {
+                return "PAYMENT DECLINED"; 
+            }
+            if (input.Contains("ERROR_INSUFFICIENT_BALANCE"))
+            {
+                return "Balance Too Low";
+            }
+            if (input.Contains("ERROR_CUSTOMER_ACCOUNT_NONEXISTENT"))
+            {
+                return "NO CUSTOMER";
+            }
+            if (input.Contains("SUCCESS"))
+            {
+                return "PAYMENT COMPLETE";
+            }
+            if (input.Contains("ERROR_WRONG_PASSWORD"))
+            {
+                return "WRONG PIN";
+            }
 
+            return "ERROR";
+        }
+
+        public String errormessagesline2(string input)
+        {
+            if (input.Contains("ERROR_CARD_INACTIVE"))
+            {
+                return "INACTIVE CARD";
+            }
+            if (input.Contains("ERROR_INSUFFICIENT_BALANCE"))
+            {
+                int balindex = input.IndexOf("balance") + 9;
+                //String amnttemp = responseString.Substring(balindex + 8);
+                int amountindex = input.IndexOf("amount") - 2;
+                cardbalance = SubstringIx(input, balindex, amountindex);
+                return "Bal: "+ String.Format("{0:c}", Convert.ToDecimal(cardbalance));
+            }
+
+            if (input.Contains("SUCCESS"))
+            {
+                int balindex = input.IndexOf("balance") + 9;
+                //String amnttemp = responseString.Substring(balindex + 8);
+                int amountindex = input.IndexOf("idMerchant") - 2;
+                cardbalance = SubstringIx(input, balindex, amountindex);
+                return "Bal: " + String.Format("{0:c}", Convert.ToDecimal(cardbalance));
+            }
+
+            return "    ERROR";
+        }
         private async void btnOk_Click(object sender, EventArgs e)
         {
+            var responseString = "";
             try
             {   
                 statuslabl.Text = "Processing...";
                 btnOk.Enabled = false;
-                var responseString = "";
+                
                 if (txtPaymentAmount.Text == "")
                 {
-                    responseString = await Properties.Settings.Default.checkcardbalancewopassword.PostUrlEncodedAsync(new { carduid = UID }).ReceiveString();
+                    if (Properties.Settings.Default.Live == "Yes")
+                    {
+                        responseString = await Properties.Settings.Default.checkcardbalancewopasswordLive.PostUrlEncodedAsync(new { carduid = UID }).ReceiveString();
+                    }
+                    else
+                    {
+                        responseString = await Properties.Settings.Default.checkcardbalancewopassword.PostUrlEncodedAsync(new { carduid = UID }).ReceiveString();
+                    }
                     int index = responseString.IndexOf("telephone");
                     int balindex = responseString.IndexOf("amount");
                     String Temp = responseString.Substring(index + 12);
@@ -306,30 +566,81 @@ namespace NewPOS
                     telephonenumber = Temp.Remove(tempindex - 3);
                     String amnttemp = responseString.Substring(balindex + 8);
                     cardbalance = amnttemp.Remove(amnttemp.Length - 1);
-                    responseString = await Properties.Settings.Default.checkoutwopassword.PostUrlEncodedAsync(new { phone = telephonenumber, amount = amountToPay, transactiontype = "iscard", paytophone = "QUI647" }).ReceiveString();
 
-                    //statuslabl.Text = responseString;
+                    if (Properties.Settings.Default.Live == "Yes")
+                    {
+                        responseString = await Properties.Settings.Default.checkcardbalancewopasswordLive.PostUrlEncodedAsync(new { phone = telephonenumber, amount = amountToPay, transactiontype = "iscard", paytophone = stringArr[8] }).ReceiveString();
+                    }
+                    else
+                    {
+                        responseString = await Properties.Settings.Default.checkoutwopassword.PostUrlEncodedAsync(new { phone = telephonenumber, amount = amountToPay, transactiontype = "iscard", paytophone = stringArr[8] }).ReceiveString();
+                    }
+                    if (myListOfReaders[0].Contains("ACR1222"))
+                    {
+
+                        acr1222lreader(true, errormessagesline1(responseString), Properties.Settings.Default.LCD1_2 + " " + String.Format("{0:c}", Convert.ToDecimal(cardbalance)), "orange");
+                    
+                    }
+                    
+                    //acr1222lreader(true, "Balance : "+cardbalance," ");
+                    
+                    //acr1222lreader(true, errormessagesline1(responseString), "Bal : " + (String.Format("{0:c}", cardbalance)));
                 }
-                else {
-                    responseString = await Properties.Settings.Default.cardcheckout.PostUrlEncodedAsync(new { paytophone = stringArr[8], amount = amountToPay, password = txtPaymentAmount.Text, transactiontype = "iscard", carduid = UID }).ReceiveString();
+                else
+                {
+                    if (Properties.Settings.Default.Live == "Yes")
+                    {
+                        responseString = await Properties.Settings.Default.cardcheckoutLive.PostUrlEncodedAsync(new { paytophone = stringArr[8], amount = amountToPay, password = txtPaymentAmount.Text, transactiontype = "iscard", carduid = UID }).ReceiveString();
+                    }
+                    else
+                    {
+                        responseString = await Properties.Settings.Default.cardcheckout.PostUrlEncodedAsync(new { paytophone = stringArr[8], amount = amountToPay, password = txtPaymentAmount.Text, transactiontype = "iscard", carduid = UID }).ReceiveString();
+                    }
+                    //idMerchant
+                    int balindex = responseString.IndexOf("balance") + 9;
+                    //String amnttemp = responseString.Substring(balindex + 8);
+                    int amountindex = responseString.IndexOf("idMerchant") - 2;
+                    cardbalance = SubstringIx(responseString, balindex, amountindex);
+                    if (myListOfReaders[0].Contains("ACR1222"))
+                    {
+
+                        acr1222lreader(true, errormessagesline1(responseString), Properties.Settings.Default.LCD1_2+" " + (String.Format("{0:c}", Convert.ToDecimal( cardbalance))),"orange");
+                    
+                    }
+                    
+                    
                 }
-                    if (responseString.Contains("ERROR"))
+
+                if (responseString.Contains("ERROR"))
                 {
                     statuslabl.Text = responseString;
                     return;
                 }
                 PayedEv(UID);
+
                 statuslabl.Text = "TRANSACTION SUCCESSFUL";
                 cardid.Text = "Card ID";
                 MessageBox.Show("TRANSACTION SUCCESSFUL");
                 
+                    acr1222lreader(false, Properties.Settings.Default.LCD1_1, " ", "none");
+                
+                
                 mytimer.Stop();
-                
-                
+                this.Close();     //"Cannot connect to the server...."           
             }
-            catch (Exception ex) { statuslabl.Text = "Cannot connect to the server...."; cardid.Text = "Card ID"; }
+            catch (Exception ex) { statuslabl.Text = responseString;
+                if (myListOfReaders[0].Contains("ACR1222"))
+                {
+
+                    acr1222lreader(true, errormessagesline1(responseString), errormessagesline2(responseString),"red");
+                
+                }
+                
+                
+                cardid.Text = "Card ID"; }
         }
 
+        
         private async void nyagauid_Click(object sender, EventArgs e)
         {
             UID = "D44A8BD0";
@@ -382,5 +693,87 @@ namespace NewPOS
                     return;
                 }*/
            }
+
+        private void swypepayform_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                mytimer.Stop();
+            }
+            catch (Exception ioe) { }
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            
+            swypepayform pf1 = new swypepayform();
+            pf1.AmountToPay = AmountToPay;
+            pf1.PayedEv += PayedEv;
+            
+            pf1.ShowDialog();
+            this.Close();
+
+        }
+
+        private void swypepayform_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            mytimer.Stop();
+
+            if (myListOfReaders[0].Contains("ACR1222"))
+            {
+
+                acr1222lreader(false, "Welcome to Swype", " ", "none");
+            }
+            
+            
+        }
+
+        private async void VoucherBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                statuslabl.Text = "Processing...";
+                VoucherBtn.Enabled = false;
+                var responseString = "";
+                   
+                    if (Properties.Settings.Default.Live == "Yes")
+                    {
+                        responseString = await Properties.Settings.Default.VoucherLive.PostUrlEncodedAsync(new { phone = telephonenumber, amount = amountToPay, id = txtPaymentAmount.Text, merchant = stringArr[8] }).ReceiveString();
+                    }
+                    else
+                    {
+                        responseString = await Properties.Settings.Default.Voucher.PostUrlEncodedAsync(new { phone = telephonenumber, amount = amountToPay, id = txtPaymentAmount.Text, merchant = stringArr[8] }).ReceiveString();
+                    }
+                
+                    //statuslabl.Text = responseString;
+                
+                if (responseString.Contains("ERROR"))
+                {
+                    statuslabl.Text = responseString;
+                    return;
+                }
+                PayedEv("Voucher");
+                statuslabl.Text = "TRANSACTION SUCCESSFUL";
+                MessageBox.Show("TRANSACTION SUCCESSFUL");
+
+                mytimer.Stop();
+
+                if (myListOfReaders[0].Contains("ACR1222"))
+                {
+                    acr1222lreader(false, "Welcome to Swype", " ", "none");
+                }
+                
+                
+                
+                this.Close();
+                //"Cannot connect to the server...."
+            }
+            catch (Exception ex) { statuslabl.Text = ex.Message; cardid.Text = "Card ID"; }
+        }
+
+        private void cardid_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

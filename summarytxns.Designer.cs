@@ -44,6 +44,7 @@
             this.generateReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.emailReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printSalesReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.asPDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filterResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.todayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thisWeekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,7 +52,6 @@
             this.yearlyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label6 = new System.Windows.Forms.Label();
             this.pdfexport = new System.Windows.Forms.Button();
-            this.asPDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -64,9 +64,9 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label1.Location = new System.Drawing.Point(83, 146);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 15);
+            this.label1.Size = new System.Drawing.Size(62, 15);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Total Sales (KES)";
+            this.label1.Text = "Total Sales";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // button1
@@ -126,9 +126,9 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label3.Location = new System.Drawing.Point(434, 146);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(132, 15);
+            this.label3.Size = new System.Drawing.Size(102, 15);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Cash Transactions (KES)";
+            this.label3.Text = "Cash Transactions";
             // 
             // button4
             // 
@@ -149,9 +149,9 @@
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label4.Location = new System.Drawing.Point(619, 146);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(159, 15);
+            this.label4.Size = new System.Drawing.Size(129, 15);
             this.label4.TabIndex = 6;
-            this.label4.Text = "SwypePay Transactions (KES)";
+            this.label4.Text = "SwypePay Transactions";
             // 
             // dataGridView1
             // 
@@ -221,6 +221,14 @@
             this.printSalesReportToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.printSalesReportToolStripMenuItem.Text = "Print Sales Report";
             // 
+            // asPDFToolStripMenuItem
+            // 
+            this.asPDFToolStripMenuItem.Image = global::NewPOS.Properties.Resources.success;
+            this.asPDFToolStripMenuItem.Name = "asPDFToolStripMenuItem";
+            this.asPDFToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.asPDFToolStripMenuItem.Text = "As PDF";
+            this.asPDFToolStripMenuItem.Click += new System.EventHandler(this.asPDFToolStripMenuItem_Click);
+            // 
             // filterResultsToolStripMenuItem
             // 
             this.filterResultsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -236,28 +244,28 @@
             // 
             this.todayToolStripMenuItem.Image = global::NewPOS.Properties.Resources.success;
             this.todayToolStripMenuItem.Name = "todayToolStripMenuItem";
-            this.todayToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.todayToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.todayToolStripMenuItem.Text = "Today";
             // 
             // thisWeekToolStripMenuItem
             // 
             this.thisWeekToolStripMenuItem.Image = global::NewPOS.Properties.Resources.success;
             this.thisWeekToolStripMenuItem.Name = "thisWeekToolStripMenuItem";
-            this.thisWeekToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.thisWeekToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.thisWeekToolStripMenuItem.Text = "This Week";
             // 
             // monthlyToolStripMenuItem
             // 
             this.monthlyToolStripMenuItem.Image = global::NewPOS.Properties.Resources.success;
             this.monthlyToolStripMenuItem.Name = "monthlyToolStripMenuItem";
-            this.monthlyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.monthlyToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.monthlyToolStripMenuItem.Text = "Monthly";
             // 
             // yearlyToolStripMenuItem
             // 
             this.yearlyToolStripMenuItem.Image = global::NewPOS.Properties.Resources.success;
             this.yearlyToolStripMenuItem.Name = "yearlyToolStripMenuItem";
-            this.yearlyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.yearlyToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.yearlyToolStripMenuItem.Text = "Yearly";
             // 
             // label6
@@ -287,14 +295,6 @@
             this.pdfexport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.pdfexport.UseVisualStyleBackColor = false;
             this.pdfexport.Click += new System.EventHandler(this.pdfexport_Click);
-            // 
-            // asPDFToolStripMenuItem
-            // 
-            this.asPDFToolStripMenuItem.Image = global::NewPOS.Properties.Resources.success;
-            this.asPDFToolStripMenuItem.Name = "asPDFToolStripMenuItem";
-            this.asPDFToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.asPDFToolStripMenuItem.Text = "As PDF";
-            this.asPDFToolStripMenuItem.Click += new System.EventHandler(this.asPDFToolStripMenuItem_Click);
             // 
             // summarytxns
             // 

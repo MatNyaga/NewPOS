@@ -4,146 +4,146 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="tblCategory">
-          <Key>
-            <PropertyRef Name="categoryId" />
-          </Key>
-          <Property Name="categoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
-          <Property Name="categoryImage" Type="varbinary(max)" />
-        </EntityType>
-        <EntityType Name="tblCompanyDetails">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="company_name" Type="nchar" MaxLength="40" />
-          <Property Name="email" Type="nchar" MaxLength="40" />
-          <Property Name="TaxPIN" Type="nchar" MaxLength="15" />
-          <Property Name="Address" Type="nchar" MaxLength="135" />
-          <Property Name="PhoneNumber" Type="nchar" MaxLength="13" />
-          <Property Name="Logo" Type="nchar" MaxLength="10" />
-          <Property Name="Country" Type="nchar" MaxLength="10" />
-          <Property Name="swypecode" Type="nchar" MaxLength="15" />
-          <Property Name="Adminpin" Type="nchar" MaxLength="30" />
-          <Property Name="Cashlesslimit" Type="int" />
-        </EntityType>
-        <EntityType Name="tblProduct">
-          <Key>
-            <PropertyRef Name="productId" />
-          </Key>
-          <Property Name="productId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="productName" Type="nvarchar" MaxLength="50" />
-          <Property Name="productPrice" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="productImage" Type="varbinary(max)" />
-          <Property Name="categoryId" Type="int" />
-          <Property Name="openingstock" Type="int" />
-          <Property Name="amountsold" Type="int" />
-          <Property Name="alertthreshold" Type="int" />
-        </EntityType>
-        <EntityType Name="tblTransaction">
-          <Key>
-            <PropertyRef Name="transactionId" />
-          </Key>
-          <Property Name="transactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="transactionDate" Type="datetime" />
-          <Property Name="cashless" Type="nchar" MaxLength="10" />
-          <Property Name="uid" Type="nchar" MaxLength="60" />
-        </EntityType>
-        <EntityType Name="tblTransactionItem">
-          <Key>
-            <PropertyRef Name="transactionItemId" />
-          </Key>
-          <Property Name="transactionItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="transactionId" Type="int" />
-          <Property Name="productId" Type="int" />
-          <Property Name="userId" Type="int" />
-        </EntityType>
-        <EntityType Name="tblUsers">
-          <Key>
-            <PropertyRef Name="userId" />
-          </Key>
-          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="userName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" />
-          <Property Name="surname" Type="nvarchar" MaxLength="50" />
-          <Property Name="email" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <Association Name="FK_tblProduct_tblCategory">
-          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
-          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCategory">
-              <PropertyRef Name="categoryId" />
-            </Principal>
-            <Dependent Role="tblProduct">
-              <PropertyRef Name="categoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblTransactionItem_tblProduct">
-          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="0..1" />
-          <End Role="tblTransactionItem" Type="Self.tblTransactionItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblProduct">
-              <PropertyRef Name="productId" />
-            </Principal>
-            <Dependent Role="tblTransactionItem">
-              <PropertyRef Name="productId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblTransactionItem_tblTransaction">
-          <End Role="tblTransaction" Type="Self.tblTransaction" Multiplicity="0..1" />
-          <End Role="tblTransactionItem" Type="Self.tblTransactionItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblTransaction">
-              <PropertyRef Name="transactionId" />
-            </Principal>
-            <Dependent Role="tblTransactionItem">
-              <PropertyRef Name="transactionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblTransactionItem_tblUsers">
-          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="0..1" />
-          <End Role="tblTransactionItem" Type="Self.tblTransactionItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUsers">
-              <PropertyRef Name="userId" />
-            </Principal>
-            <Dependent Role="tblTransactionItem">
-              <PropertyRef Name="userId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="Database1ModelStoreContainer">
-          <EntitySet Name="tblCategory" EntityType="Self.tblCategory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblCompanyDetails" EntityType="Self.tblCompanyDetails" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblProduct" EntityType="Self.tblProduct" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblTransaction" EntityType="Self.tblTransaction" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblTransactionItem" EntityType="Self.tblTransactionItem" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_tblProduct_tblCategory" Association="Self.FK_tblProduct_tblCategory">
-            <End Role="tblCategory" EntitySet="tblCategory" />
-            <End Role="tblProduct" EntitySet="tblProduct" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblTransactionItem_tblProduct" Association="Self.FK_tblTransactionItem_tblProduct">
-            <End Role="tblProduct" EntitySet="tblProduct" />
-            <End Role="tblTransactionItem" EntitySet="tblTransactionItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblTransactionItem_tblTransaction" Association="Self.FK_tblTransactionItem_tblTransaction">
-            <End Role="tblTransaction" EntitySet="tblTransaction" />
-            <End Role="tblTransactionItem" EntitySet="tblTransactionItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblTransactionItem_tblUsers" Association="Self.FK_tblTransactionItem_tblUsers">
-            <End Role="tblUsers" EntitySet="tblUsers" />
-            <End Role="tblTransactionItem" EntitySet="tblTransactionItem" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="Database1Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Database1ModelStoreContainer">
+    <EntitySet Name="tblCategory" EntityType="Database1Model.Store.tblCategory" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblProduct" EntityType="Database1Model.Store.tblProduct" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblTransaction" EntityType="Database1Model.Store.tblTransaction" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblTransactionItem" EntityType="Database1Model.Store.tblTransactionItem" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblUsers" EntityType="Database1Model.Store.tblUsers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblCompanyDetails" EntityType="Database1Model.Store.tblCompanyDetails" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_tblProduct_tblCategory" Association="Database1Model.Store.FK_tblProduct_tblCategory">
+      <End Role="tblCategory" EntitySet="tblCategory" />
+      <End Role="tblProduct" EntitySet="tblProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblTransactionItem_tblProduct" Association="Database1Model.Store.FK_tblTransactionItem_tblProduct">
+      <End Role="tblProduct" EntitySet="tblProduct" />
+      <End Role="tblTransactionItem" EntitySet="tblTransactionItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblTransactionItem_tblTransaction" Association="Database1Model.Store.FK_tblTransactionItem_tblTransaction">
+      <End Role="tblTransaction" EntitySet="tblTransaction" />
+      <End Role="tblTransactionItem" EntitySet="tblTransactionItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblTransactionItem_tblUsers" Association="Database1Model.Store.FK_tblTransactionItem_tblUsers">
+      <End Role="tblUsers" EntitySet="tblUsers" />
+      <End Role="tblTransactionItem" EntitySet="tblTransactionItem" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="tblCategory">
+    <Key>
+      <PropertyRef Name="categoryId" />
+    </Key>
+    <Property Name="categoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="categoryImage" Type="varbinary(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="tblProduct">
+    <Key>
+      <PropertyRef Name="productId" />
+    </Key>
+    <Property Name="productId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="productName" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="productPrice" Type="decimal" Nullable="true" Precision="18" Scale="2" />
+    <Property Name="productImage" Type="varbinary(max)" Nullable="true" />
+    <Property Name="categoryId" Type="int" Nullable="true" />
+    <Property Name="openingstock" Type="int" Nullable="true" />
+    <Property Name="amountsold" Type="int" Nullable="true" />
+    <Property Name="alertthreshold" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="tblTransaction">
+    <Key>
+      <PropertyRef Name="transactionId" />
+    </Key>
+    <Property Name="transactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="transactionDate" Type="datetime" Nullable="true" />
+    <Property Name="cashless" Type="nchar" Nullable="true" MaxLength="10" />
+    <Property Name="uid" Type="nchar" Nullable="true" MaxLength="60" />
+  </EntityType>
+  <EntityType Name="tblTransactionItem">
+    <Key>
+      <PropertyRef Name="transactionItemId" />
+    </Key>
+    <Property Name="transactionItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="transactionId" Type="int" Nullable="true" />
+    <Property Name="productId" Type="int" Nullable="true" />
+    <Property Name="userId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="tblUsers">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="name" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="surname" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="email" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblCompanyDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="company_name" Type="nchar" Nullable="true" MaxLength="40" />
+    <Property Name="email" Type="nchar" Nullable="true" MaxLength="40" />
+    <Property Name="TaxPIN" Type="nchar" Nullable="true" MaxLength="15" />
+    <Property Name="Address" Type="nchar" Nullable="true" MaxLength="135" />
+    <Property Name="PhoneNumber" Type="nchar" Nullable="true" MaxLength="13" />
+    <Property Name="Logo" Type="nchar" Nullable="true" MaxLength="10" />
+    <Property Name="Country" Type="nchar" Nullable="true" MaxLength="10" />
+    <Property Name="swypecode" Type="nchar" Nullable="true" MaxLength="15" />
+    <Property Name="Adminpin" Type="nchar" Nullable="true" MaxLength="30" />
+    <Property Name="Cashlesslimit" Type="int" Nullable="true" />
+  </EntityType>
+  <Association Name="FK_tblProduct_tblCategory">
+    <End Role="tblCategory" Type="Database1Model.Store.tblCategory" Multiplicity="0..1" />
+    <End Role="tblProduct" Type="Database1Model.Store.tblProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCategory">
+        <PropertyRef Name="categoryId" />
+      </Principal>
+      <Dependent Role="tblProduct">
+        <PropertyRef Name="categoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblTransactionItem_tblProduct">
+    <End Role="tblProduct" Type="Database1Model.Store.tblProduct" Multiplicity="0..1" />
+    <End Role="tblTransactionItem" Type="Database1Model.Store.tblTransactionItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProduct">
+        <PropertyRef Name="productId" />
+      </Principal>
+      <Dependent Role="tblTransactionItem">
+        <PropertyRef Name="productId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblTransactionItem_tblTransaction">
+    <End Role="tblTransaction" Type="Database1Model.Store.tblTransaction" Multiplicity="0..1" />
+    <End Role="tblTransactionItem" Type="Database1Model.Store.tblTransactionItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblTransaction">
+        <PropertyRef Name="transactionId" />
+      </Principal>
+      <Dependent Role="tblTransactionItem">
+        <PropertyRef Name="transactionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblTransactionItem_tblUsers">
+    <End Role="tblUsers" Type="Database1Model.Store.tblUsers" Multiplicity="0..1" />
+    <End Role="tblTransactionItem" Type="Database1Model.Store.tblTransactionItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUsers">
+        <PropertyRef Name="userId" />
+      </Principal>
+      <Dependent Role="tblTransactionItem">
+        <PropertyRef Name="userId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -311,24 +311,24 @@
     <EntitySetMapping Name="tblProduct">
       <EntityTypeMapping TypeName="IsTypeOf(Database1Model.tblProduct)">
         <MappingFragment StoreEntitySet="tblProduct">
-          <ScalarProperty Name="alertthreshold" ColumnName="alertthreshold" />
-                <ScalarProperty Name="amountsold" ColumnName="amountsold" />
-                <ScalarProperty Name="openingstock" ColumnName="openingstock" />
-                <ScalarProperty Name="productId" ColumnName="productId" />
+          <ScalarProperty Name="productId" ColumnName="productId" />
           <ScalarProperty Name="productName" ColumnName="productName" />
           <ScalarProperty Name="productPrice" ColumnName="productPrice" />
           <ScalarProperty Name="productImage" ColumnName="productImage" />
           <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="openingstock" ColumnName="openingstock" />
+          <ScalarProperty Name="amountsold" ColumnName="amountsold" />
+          <ScalarProperty Name="alertthreshold" ColumnName="alertthreshold" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tblTransaction">
       <EntityTypeMapping TypeName="IsTypeOf(Database1Model.tblTransaction)">
         <MappingFragment StoreEntitySet="tblTransaction">
-          <ScalarProperty Name="uid" ColumnName="uid" />
-                <ScalarProperty Name="transactionId" ColumnName="transactionId" />
+          <ScalarProperty Name="transactionId" ColumnName="transactionId" />
           <ScalarProperty Name="transactionDate" ColumnName="transactionDate" />
           <ScalarProperty Name="cashless" ColumnName="cashless" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -357,9 +357,7 @@
     <EntitySetMapping Name="tblCompanyDetails">
       <EntityTypeMapping TypeName="IsTypeOf(Database1Model.tblCompanyDetails)">
         <MappingFragment StoreEntitySet="tblCompanyDetails">
-          <ScalarProperty Name="Cashlesslimit" ColumnName="Cashlesslimit" />
-                <ScalarProperty Name="Adminpin" ColumnName="Adminpin" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="company_name" ColumnName="company_name" />
           <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="TaxPIN" ColumnName="TaxPIN" />
@@ -368,6 +366,8 @@
           <ScalarProperty Name="Logo" ColumnName="Logo" />
           <ScalarProperty Name="Country" ColumnName="Country" />
           <ScalarProperty Name="swypecode" ColumnName="swypecode" />
+          <ScalarProperty Name="Adminpin" ColumnName="Adminpin" />
+          <ScalarProperty Name="Cashlesslimit" ColumnName="Cashlesslimit" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
